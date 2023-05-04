@@ -17,5 +17,11 @@
     "jsx": "react-jsx"
   },
 
-  "include": ["./*.json", "./*.js", "./src/*.ts", "./src/*.tsx"]
+  "include": [
+    "./*.json",
+    "./*.js",
+    "./src/*.ts",
+    "./src/*.tsx",
+    "./src/*/*.tsx"
+  ]
 }
