@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { LogInCircle } from "@styled-icons/boxicons-regular";
+import { Settings, LogIn } from "@styled-icons/ionicons-outline";
 import { Time } from "./Time";
 import Button from "../styledComponents/Button";
 
@@ -14,9 +14,12 @@ export const StyledHeader = styled("header")`
 export function Header() {
   return (
     <StyledHeader>
+      <Button>
+        <Settings title="Login" size="48" />
+      </Button>
       <Time />
       <Button>
-        <LogInCircle title="Login" size="48" />
+        <LogIn title="Login" size="48" />
       </Button>
     </StyledHeader>
   );
