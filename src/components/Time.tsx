@@ -1,7 +1,14 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import { formatTime, getTime } from "../utils";
 
-export default function Time() {
+export const StyledTime = styled("div")`
+  color: palevioletred;
+  font-weight: bold;
+  font-size: 4rem;
+`;
+
+export function Time() {
   const [time, setTime] = useState(formatTime(getTime()));
 
   setInterval(() => {
@@ -10,8 +17,8 @@ export default function Time() {
   }, 1000);
 
   return (
-    <div>
+    <StyledTime>
       {time.hours}:{time.minutes}:{time.seconds}
-    </div>
+    </StyledTime>
   );
 }

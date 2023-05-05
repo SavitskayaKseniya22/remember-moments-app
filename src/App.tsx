@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import Time from "./components/Time";
+import { Time } from "./components/Time";
 
 function App() {
   return (
