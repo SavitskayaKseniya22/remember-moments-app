@@ -1,27 +1,16 @@
 import React from "react";
-import "./App.css";
-import { normalize } from "styled-normalize";
-import { createGlobalStyle } from "styled-components";
+
 import { Header } from "./components/Header";
-import background from "./assets/images/landscape.jpg";
-
-export const GlobalStyle = createGlobalStyle`
-  ${normalize}
-
-  body {
-    width: 100vw;
-    height: 100vh;
-    background: no-repeat center url(${background});
-    background-size: cover;
-  }
-`;
+import { Footer } from "./components/Footer";
+import { GlobalStyle } from "./styledComponents/GlobalStyle";
 
 function App() {
   return (
-    <div className="App">
+    <>
       <Header />
+      <Footer />
       <GlobalStyle />
-    </div>
+    </>
   );
 }
 
