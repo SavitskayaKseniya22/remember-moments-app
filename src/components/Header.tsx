@@ -14,11 +14,11 @@ export const StyledHeader = styled("header")`
 export function Header() {
   return (
     <StyledHeader>
-      <Button>
-        <Settings title="Login" size="48" />
+      <Button path="settings">
+        <Settings title="Settings" size="48" />
       </Button>
       <Time />
-      <Button>
+      <Button path="login">
         <LogIn title="Login" size="48" />
       </Button>
     </StyledHeader>
