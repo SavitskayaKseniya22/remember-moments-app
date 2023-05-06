@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { Settings, LogIn } from "@styled-icons/ionicons-outline";
+
 import { Time } from "./Time";
-import Button from "../styledComponents/Button";
+import { StyledRedButton } from "../styledComponents/StyledButton";
 
 export const StyledHeader = styled("header")`
   background: rgba(0, 0, 0, 0.5);
@@ -14,13 +15,13 @@ export const StyledHeader = styled("header")`
 export function Header() {
   return (
     <StyledHeader>
-      <Button path="settings">
+      <StyledRedButton type="button" path="settings">
         <Settings title="Settings" size="48" />
-      </Button>
+      </StyledRedButton>
       <Time />
-      <Button path="login">
+      <StyledRedButton type="button" path="auth">
         <LogIn title="Login" size="48" />
-      </Button>
+      </StyledRedButton>
     </StyledHeader>
   );
 }

@@ -4,7 +4,7 @@ import Button from "./Button";
 export const StyledBasicButton = styled(Button)`
   background: transparent;
   border: none;
-  padding: 1rem;
+  padding: 0.5rem;
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -13,6 +13,9 @@ export const StyledBasicButton = styled(Button)`
 
 export const StyledRedButton = styled(StyledBasicButton)`
   color: #fd6e09;
+`;
+export const StyledRedOutlineButton = styled(StyledBasicButton)`
+  border: 1px solid #fd6e09;
 `;
 
 export const BackButton = styled(StyledRedButton)`
