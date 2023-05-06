@@ -1,40 +1,55 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-
-const StyledBasicButton = styled("button")`
-  background: transparent;
-  border: none;
-  padding: 1rem;
-  cursor: pointer;
-`;
-
-const StyledRedButton = styled(StyledBasicButton)`
-  color: #fd6e09;
-`;
 
 function Button({
   children,
   path,
+  type,
+  className,
 }: {
-  children: JSX.Element | JSX.Element[];
+  children: JSX.Element | JSX.Element[] | string;
   path: string;
+  type: "button" | "submit" | "reset" | undefined;
+  className?: string;
 }) {
   const navigate = useNavigate();
   const handleClick = () => {
     switch (path) {
+      case "back":
+        navigate(-1);
+        break;
       case "login":
-        navigate("/login");
+      case "auth":
+        navigate("/auth/login");
         break;
       case "settings":
         navigate("/settings");
+        break;
+      case "board":
+        navigate("/board");
+        break;
+      case "registration":
+        navigate("/auth/registration");
         break;
       default:
         navigate("/");
         break;
     }
   };
-  return <StyledRedButton onClick={handleClick}>{children}</StyledRedButton>;
+
+  return (
+    <button
+      className={className}
+      type={type === "submit" ? "submit" : "button"}
+      onClick={handleClick}
+    >
+      {children}
+    </button>
+  );
 }
+
+Button.defaultProps = {
+  className: undefined,
+};
 
 export default Button;
