@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { StyledRedOutlineButton } from "../styledComponents/StyledButton";
 
 export const StyledBlock = styled("div")`
@@ -30,28 +31,37 @@ export const StyledButtonList = styled("div")`
 `;
 
 export function AuthForm({ type }: { type: string }) {
+  const navigate = useNavigate();
   return (
     <StyledBlock>
       <StyledInput type="email" placeholder="email" />
       <StyledInput type="password" placeholder="password" />
-      {type === "reg" ? <StyledInput type="text" placeholder="name" /> : ""}
       <StyledButtonList>
-        <StyledRedOutlineButton type="submit" path="board">
+        <StyledRedOutlineButton
+          type="submit"
+          handleClick={() => {
+            navigate("/board");
+          }}
+        >
           Enter
         </StyledRedOutlineButton>
-        {type === "login" ? (
-          <StyledRedOutlineButton type="button" path="registration">
+        {type === "login" && (
+          <StyledRedOutlineButton
+            handleClick={() => {
+              navigate("/auth/registration");
+            }}
+          >
             Registration
           </StyledRedOutlineButton>
-        ) : (
-          ""
         )}
-        {type === "reg" ? (
-          <StyledRedOutlineButton type="button" path="login">
+        {type === "reg" && (
+          <StyledRedOutlineButton
+            handleClick={() => {
+              navigate("/auth/login");
+            }}
+          >
             Login
           </StyledRedOutlineButton>
-        ) : (
-          ""
         )}
       </StyledButtonList>
     </StyledBlock>

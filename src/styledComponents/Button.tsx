@@ -1,48 +1,20 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 
 function Button({
   children,
-  path,
   type,
   className,
+  handleClick,
 }: {
   children: JSX.Element | JSX.Element[] | string;
-  path: string;
-  type: "button" | "submit" | "reset" | undefined;
-  className?: string;
-}) {
-  const navigate = useNavigate();
-  const handleClick = () => {
-    switch (path) {
-      case "back":
-        navigate(-1);
-        break;
-      case "login":
-      case "auth":
-        navigate("/auth/login");
-        break;
-      case "settings":
-        navigate("/settings");
-        break;
-      case "board":
-        navigate("/board");
-        break;
-      case "registration":
-        navigate("/auth/registration");
-        break;
-      default:
-        navigate("/");
-        break;
-    }
-  };
 
+  type?: "button" | "submit" | "reset" | undefined;
+  className?: string;
+  handleClick: () => void;
+}) {
   return (
-    <button
-      className={className}
-      type={type === "submit" ? "submit" : "button"}
-      onClick={handleClick}
-    >
+    // eslint-disable-next-line react/button-has-type
+    <button className={className} type={type} onClick={handleClick}>
       {children}
     </button>
   );
@@ -50,6 +22,7 @@ function Button({
 
 Button.defaultProps = {
   className: undefined,
+  type: "button",
 };
 
 export default Button;
