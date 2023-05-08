@@ -1,9 +1,12 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from "react";
 import styled from "styled-components";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { StyledRedOutlineButton } from "../styledComponents/StyledButton";
+import signUp, { signIn } from "../services/apiService";
 
-export const StyledBlock = styled("div")`
+export const StyledForm = styled("form")`
   background-color: white;
   padding: 1rem;
   display: flex;
@@ -32,15 +35,60 @@ export const StyledButtonList = styled("div")`
 
 export function AuthForm({ type }: { type: string }) {
   const navigate = useNavigate();
+  const { register, handleSubmit } = useForm();
+  const onSubmit = handleSubmit(async (data) => {
+    const dataToSend = {
+      email: data.email,
+      password: data.password,
+      returnSecureToken: true,
+    };
+    if (type === "login") {
+      signIn(dataToSend)
+        .then((result) => {
+          if (!result.error) {
+            navigate("/board");
+          }
+        })
+        .catch((error) => {
+          console.error(`Download error: ${error}`);
+        });
+    } else if (type === "reg") {
+      signUp(dataToSend)
+        .then((result) => {
+          if (!result.error) {
+            signIn(dataToSend);
+          }
+          return result;
+        })
+        .then((result) => {
+          if (!result.error) {
+            navigate("/board");
+          }
+        })
+        .catch((error) => {
+          console.error(`Download error: ${error}`);
+        });
+    }
+  });
   return (
-    <StyledBlock>
-      <StyledInput type="email" placeholder="email" />
-      <StyledInput type="password" placeholder="password" />
+    <StyledForm onSubmit={onSubmit}>
+      <StyledInput
+        type="email"
+        placeholder="email"
+        defaultValue=""
+        {...register("email")}
+      />
+      <StyledInput
+        type="password"
+        placeholder="password"
+        defaultValue=""
+        {...register("password")}
+      />
       <StyledButtonList>
         <StyledRedOutlineButton
           type="submit"
           handleClick={() => {
-            navigate("/board");
+            // navigate("/board");
           }}
         >
           Enter
@@ -64,7 +112,7 @@ export function AuthForm({ type }: { type: string }) {
           </StyledRedOutlineButton>
         )}
       </StyledButtonList>
-    </StyledBlock>
+    </StyledForm>
   );
 }
 
