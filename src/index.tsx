@@ -5,21 +5,25 @@ import "./index.css";
 import {
   Route,
   Outlet,
-  redirect,
   createBrowserRouter,
   createRoutesFromElements,
   RouterProvider,
+  Navigate,
 } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { AuthForm } from "./components/AuthForm";
-import { checkLS } from "./utils";
+
 import App from "./App";
 import { GlobalStyle } from "./styledComponents/GlobalStyle";
 import ErrorPage from "./pages/ErrorPage";
 import { MainContent } from "./components/MainContent";
 import { loginAction, regAction } from "./services/actions";
+import {
+  boardLoaderWithActiveUser,
+  boardLoaderWithoutActiveUser,
+} from "./services/loaders";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
@@ -34,45 +38,37 @@ const router = createBrowserRouter(
           <MainContent>
             <Outlet />
           </MainContent>
-
           <Footer />
         </>
       }
     >
       <Route path="/" errorElement={<ErrorPage />}>
-        <Route index element={<App />} />
+        <Route index element={<App />} loader={boardLoaderWithActiveUser} />
 
         <Route path="auth">
           <Route
             index
-            element={
-              <MainContent>
-                <Outlet />
-              </MainContent>
-            }
+            loader={boardLoaderWithActiveUser}
+            element={<Navigate to="login" />}
           />
           <Route
             path="login"
             element={<AuthForm type="login" />}
             action={loginAction}
+            loader={boardLoaderWithActiveUser}
           />
           <Route
             path="registration"
             element={<AuthForm type="registration" />}
             action={regAction}
+            loader={boardLoaderWithActiveUser}
           />
         </Route>
 
         <Route
           path="board"
           element={<div>Board</div>}
-          loader={() => {
-            const user = checkLS("activeUser");
-            if (!user) {
-              return redirect("/");
-            }
-            return { user };
-          }}
+          loader={boardLoaderWithoutActiveUser}
         />
         <Route path="settings" element="<div>Settings</div>" />
         <Route path="*" element="<div>404</div>" />
