@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { ReturnDownBack } from "@styled-icons/ionicons-outline";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { BackButton } from "../styledComponents/StyledButton";
 
 export const StyledMainContent = styled("main")`
@@ -18,16 +18,20 @@ export function MainContent({
   children: JSX.Element | JSX.Element[] | string;
 }) {
   const navigate = useNavigate();
+  const location = useLocation();
+
   return (
     <StyledMainContent>
       {children}
-      <BackButton
-        handleClick={() => {
-          navigate(-1);
-        }}
-      >
-        <ReturnDownBack title="Login" size="48" />
-      </BackButton>
+      {location.pathname !== "/" && (
+        <BackButton
+          handleClick={() => {
+            navigate(-1);
+          }}
+        >
+          <ReturnDownBack title="Back" size="48" />
+        </BackButton>
+      )}
     </StyledMainContent>
   );
 }
