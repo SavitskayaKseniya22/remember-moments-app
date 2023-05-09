@@ -6,7 +6,7 @@ async function signUp(data: {
   returnSecureToken: boolean;
 }) {
   const key = firebaseConfig.apiKey;
-  const response = await fetch(
+  const response: Response = await fetch(
     `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${key}`,
     {
       method: "POST",
@@ -30,7 +30,7 @@ export async function signIn(data: {
   returnSecureToken: boolean;
 }) {
   const key = firebaseConfig.apiKey;
-  const response = await fetch(
+  const response: Response = await fetch(
     `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${key}`,
     {
       method: "POST",
@@ -43,5 +43,6 @@ export async function signIn(data: {
     },
   );
   const result = await response.json();
+
   return result;
 }

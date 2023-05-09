@@ -10,7 +10,7 @@ function Button({
 
   type?: "button" | "submit" | "reset" | undefined;
   className?: string;
-  handleClick: () => void;
+  handleClick?: () => void;
 }) {
   return (
     // eslint-disable-next-line react/button-has-type
@@ -23,6 +23,7 @@ function Button({
 Button.defaultProps = {
   className: undefined,
   type: "button",
+  handleClick: () => {},
 };
 
 export default Button;

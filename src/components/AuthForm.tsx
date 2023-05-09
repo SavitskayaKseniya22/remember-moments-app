@@ -36,6 +36,8 @@ export const StyledButtonList = styled("div")`
 export function AuthForm({ type }: { type: string }) {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
+  const storage = window.localStorage;
+
   const onSubmit = handleSubmit(async (data) => {
     const dataToSend = {
       email: data.email,
@@ -46,9 +48,17 @@ export function AuthForm({ type }: { type: string }) {
       signIn(dataToSend)
         .then((result) => {
           if (!result.error) {
+            storage.setItem(
+              "activeUser",
+              JSON.stringify({
+                email: result.email,
+                token: result.idToken,
+              }),
+            );
             navigate("/board");
           }
         })
+
         .catch((error) => {
           console.error(`Download error: ${error}`);
         });
@@ -62,9 +72,17 @@ export function AuthForm({ type }: { type: string }) {
         })
         .then((result) => {
           if (!result.error) {
+            storage.setItem(
+              "activeUser",
+              JSON.stringify({
+                email: result.email,
+                token: result.idToken,
+              }),
+            );
             navigate("/board");
           }
         })
+
         .catch((error) => {
           console.error(`Download error: ${error}`);
         });
@@ -85,14 +103,7 @@ export function AuthForm({ type }: { type: string }) {
         {...register("password")}
       />
       <StyledButtonList>
-        <StyledRedOutlineButton
-          type="submit"
-          handleClick={() => {
-            // navigate("/board");
-          }}
-        >
-          Enter
-        </StyledRedOutlineButton>
+        <StyledRedOutlineButton type="submit">Enter</StyledRedOutlineButton>
         {type === "login" && (
           <StyledRedOutlineButton
             handleClick={() => {

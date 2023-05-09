@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Settings, LogIn } from "@styled-icons/ionicons-outline";
-
+import { LogOut, LogIn, Cog } from "@styled-icons/boxicons-regular";
 import { useNavigate } from "react-router-dom";
 import { Time } from "./Time";
 import { StyledRedButton } from "../styledComponents/StyledButton";
@@ -15,6 +14,7 @@ export const StyledHeader = styled("header")`
 
 export function Header() {
   const navigate = useNavigate();
+  const storage = window.localStorage;
   return (
     <StyledHeader>
       <StyledRedButton
@@ -22,16 +22,27 @@ export function Header() {
           navigate("settings");
         }}
       >
-        <Settings title="Settings" size="48" />
+        <Cog title="Settings" size="48" />
       </StyledRedButton>
       <Time />
-      <StyledRedButton
-        handleClick={() => {
-          navigate("/auth/login");
-        }}
-      >
-        <LogIn title="Login" size="48" />
-      </StyledRedButton>
+      {storage.activeUser ? (
+        <StyledRedButton
+          handleClick={() => {
+            storage.removeItem("activeUser");
+            navigate("/");
+          }}
+        >
+          <LogOut title="LogOut" size="48" />
+        </StyledRedButton>
+      ) : (
+        <StyledRedButton
+          handleClick={() => {
+            navigate("/auth/login");
+          }}
+        >
+          <LogIn title="Login" size="48" />
+        </StyledRedButton>
+      )}
     </StyledHeader>
   );
 }
