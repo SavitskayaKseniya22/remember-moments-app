@@ -24,3 +24,8 @@ export function formatTime(time: { [key: string]: number }) {
 
   return formattedTime;
 }
+
+export function checkLS(key: string) {
+  const storage = window.localStorage;
+  return storage.getItem(key);
+}
