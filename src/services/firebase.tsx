@@ -9,6 +9,8 @@ const firebaseConfig = {
   messagingSenderId: "291595116895",
   appId: "1:291595116895:web:7ac641ff51bdcc34ba96ea",
   measurementId: "G-ZXJX21GJ85",
+  databaseURL:
+    "https://remember-moments-app-default-rtdb.europe-west1.firebasedatabase.app",
 };
 
 const app = initializeApp(firebaseConfig);
