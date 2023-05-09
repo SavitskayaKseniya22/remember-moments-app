@@ -2,11 +2,10 @@
 import React from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
 import { StyledRedOutlineButton } from "../styledComponents/StyledButton";
-import signUp, { signIn } from "../services/apiService";
 
-export const StyledForm = styled("form")`
+export const StyledForm = styled(Form)`
   background-color: white;
   padding: 1rem;
   display: flex;
@@ -35,61 +34,10 @@ export const StyledButtonList = styled("div")`
 
 export function AuthForm({ type }: { type: string }) {
   const navigate = useNavigate();
-  const { register, handleSubmit } = useForm();
-  const storage = window.localStorage;
+  const { register } = useForm();
 
-  const onSubmit = handleSubmit(async (data) => {
-    const dataToSend = {
-      email: data.email,
-      password: data.password,
-      returnSecureToken: true,
-    };
-    if (type === "login") {
-      signIn(dataToSend)
-        .then((result) => {
-          if (!result.error) {
-            storage.setItem(
-              "activeUser",
-              JSON.stringify({
-                email: result.email,
-                token: result.idToken,
-              }),
-            );
-            navigate("/board");
-          }
-        })
-
-        .catch((error) => {
-          console.error(`Download error: ${error}`);
-        });
-    } else if (type === "reg") {
-      signUp(dataToSend)
-        .then((result) => {
-          if (!result.error) {
-            signIn(dataToSend);
-          }
-          return result;
-        })
-        .then((result) => {
-          if (!result.error) {
-            storage.setItem(
-              "activeUser",
-              JSON.stringify({
-                email: result.email,
-                token: result.idToken,
-              }),
-            );
-            navigate("/board");
-          }
-        })
-
-        .catch((error) => {
-          console.error(`Download error: ${error}`);
-        });
-    }
-  });
   return (
-    <StyledForm onSubmit={onSubmit}>
+    <StyledForm method="post">
       <StyledInput
         type="email"
         placeholder="email"
@@ -113,7 +61,7 @@ export function AuthForm({ type }: { type: string }) {
             Registration
           </StyledRedOutlineButton>
         )}
-        {type === "reg" && (
+        {type === "registration" && (
           <StyledRedOutlineButton
             handleClick={() => {
               navigate("/auth/login");

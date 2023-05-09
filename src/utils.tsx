@@ -29,3 +29,11 @@ export function checkLS(key: string) {
   const storage = window.localStorage;
   return storage.getItem(key);
 }
+
+export function formatDataToSend(data: FormData) {
+  return {
+    email: String(data.get("email")),
+    password: String(data.get("password")),
+    returnSecureToken: true,
+  };
+}

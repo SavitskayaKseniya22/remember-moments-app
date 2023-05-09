@@ -13,11 +13,13 @@ import {
 import reportWebVitals from "./reportWebVitals";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
-import { AuthPage } from "./pages/AuthPage";
+import { AuthForm } from "./components/AuthForm";
 import { checkLS } from "./utils";
 import App from "./App";
 import { GlobalStyle } from "./styledComponents/GlobalStyle";
 import ErrorPage from "./pages/ErrorPage";
+import { MainContent } from "./components/MainContent";
+import { loginAction, regAction } from "./services/actions";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
@@ -29,7 +31,10 @@ const router = createBrowserRouter(
       element={
         <>
           <Header />
-          <Outlet />
+          <MainContent>
+            <Outlet />
+          </MainContent>
+
           <Footer />
         </>
       }
@@ -38,9 +43,24 @@ const router = createBrowserRouter(
         <Route index element={<App />} />
 
         <Route path="auth">
-          <Route index element={<AuthPage type="login" />} />
-          <Route path="login" element={<AuthPage type="login" />} />
-          <Route path="registration" element={<AuthPage type="reg" />} />
+          <Route
+            index
+            element={
+              <MainContent>
+                <Outlet />
+              </MainContent>
+            }
+          />
+          <Route
+            path="login"
+            element={<AuthForm type="login" />}
+            action={loginAction}
+          />
+          <Route
+            path="registration"
+            element={<AuthForm type="registration" />}
+            action={regAction}
+          />
         </Route>
 
         <Route
