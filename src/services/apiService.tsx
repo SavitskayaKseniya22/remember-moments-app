@@ -46,3 +46,22 @@ export async function signIn(data: {
 
   return result;
 }
+
+export async function getUserData(token: string) {
+  const key = firebaseConfig.apiKey;
+  const response: Response = await fetch(
+    `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${key}`,
+    {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({ idToken: token }),
+    },
+  );
+  const result = await response.json();
+
+  return result;
+}

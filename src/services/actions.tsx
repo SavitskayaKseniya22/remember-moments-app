@@ -1,21 +1,26 @@
 import { ActionFunctionArgs, redirect } from "react-router-dom";
 import { formatDataToSend } from "../utils";
-import signUp, { signIn } from "./apiService";
+import signUp, { getUserData, signIn } from "./apiService";
 
 export async function loginAction({ request }: ActionFunctionArgs) {
   const storage = window.localStorage;
   const formData = await request.formData();
   const dataToSend = formatDataToSend(formData);
-  const result = await signIn(dataToSend);
+  const resultSignIn = await signIn(dataToSend);
 
-  if (result.idToken) {
+  if (resultSignIn.idToken) {
     storage.setItem(
       "activeUser",
       JSON.stringify({
-        email: result.email,
-        token: result.idToken,
+        email: resultSignIn.email,
+        token: resultSignIn.idToken,
       }),
     );
+    const resultGetUserData = await getUserData(resultSignIn.idToken);
+    if (!resultGetUserData.error) {
+      storage.setItem("activeUserData", JSON.stringify(resultGetUserData));
+    }
+
     return redirect("/board");
   }
   return null;
@@ -36,6 +41,10 @@ export async function regAction({ request }: ActionFunctionArgs) {
           token: resultSignIn.idToken,
         }),
       );
+      const resultGetUserData = await getUserData(resultSignIn.idToken);
+      if (!resultGetUserData.error) {
+        storage.setItem("activeUserData", JSON.stringify(resultGetUserData));
+      }
       return redirect("/board");
     }
   }
