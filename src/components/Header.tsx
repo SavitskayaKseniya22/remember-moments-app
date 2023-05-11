@@ -42,6 +42,7 @@ export function Header() {
         <StyledRedButton
           handleClick={() => {
             storage.removeItem("activeUser");
+            storage.removeItem("activeUserData");
             navigate("/");
           }}
         >

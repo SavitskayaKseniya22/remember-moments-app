@@ -3,9 +3,18 @@ import styled from "styled-components";
 import { ReturnDownBack } from "@styled-icons/ionicons-outline";
 import { useLocation, useNavigate } from "react-router-dom";
 import { BackButton } from "../styledComponents/StyledButton";
+import { AccountHeader } from "./AccountHeader";
 
 export const StyledMainContent = styled("main")`
   background-color: rgba(0, 0, 0, 0.3);
+  flex-grow: 1;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
+const StyledExpandedContainer = styled("div")`
   flex-grow: 1;
   display: flex;
   justify-content: center;
@@ -22,16 +31,19 @@ export function MainContent({
 
   return (
     <StyledMainContent>
-      {children}
-      {location.pathname !== "/" && (
-        <BackButton
-          handleClick={() => {
-            navigate(-1);
-          }}
-        >
-          <ReturnDownBack title="Back" size="48" />
-        </BackButton>
-      )}
+      <AccountHeader />
+      <StyledExpandedContainer>
+        {children}
+        {location.pathname !== "/" && (
+          <BackButton
+            handleClick={() => {
+              navigate(-1);
+            }}
+          >
+            <ReturnDownBack title="Back" size="48" />
+          </BackButton>
+        )}
+      </StyledExpandedContainer>
     </StyledMainContent>
   );
 }
