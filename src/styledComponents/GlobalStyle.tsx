@@ -5,6 +5,10 @@ import background from "../assets/images/landscape.jpg";
 export const GlobalStyle = createGlobalStyle`
   ${normalize}
 
+  * {
+    box-sizing: border-box;
+  }
+
   body {
     color: #fcdffd;
     font-family: 'Fjalla One', sans-serif;
