@@ -22,5 +22,7 @@ module.exports = {
     project: "./tsconfig.json",
   },
   plugins: ["react", "@typescript-eslint", "prettier"],
-  rules: {},
+  rules: {
+    "@typescript-eslint/no-explicit-any": "error"
+  },
 };
