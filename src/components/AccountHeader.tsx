@@ -29,11 +29,12 @@ export function AccountHeader() {
   return (
     <StyledAccountHeader>
       <span>Welcome, {name}!</span>
-      {storage.activeUser ? (
+      {name !== "Stranger" ? (
         <StyledRedButton
           handleClick={() => {
             storage.removeItem("activeUser");
             storage.removeItem("activeUserData");
+            setName("Stranger");
             navigate("/");
           }}
         >
