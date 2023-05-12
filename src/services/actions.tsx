@@ -18,7 +18,7 @@ export async function loginAction({ request }: ActionFunctionArgs) {
     );
     const resultGetUserData = await getUserData(resultSignIn.idToken);
     if (!resultGetUserData.error) {
-      storage.setItem("activeUserData", JSON.stringify(resultGetUserData));
+      storage.setItem("userData", JSON.stringify(resultGetUserData));
     }
 
     return redirect("/board");
@@ -43,7 +43,7 @@ export async function regAction({ request }: ActionFunctionArgs) {
       );
       const resultGetUserData = await getUserData(resultSignIn.idToken);
       if (!resultGetUserData.error) {
-        storage.setItem("activeUserData", JSON.stringify(resultGetUserData));
+        storage.setItem("userData", JSON.stringify(resultGetUserData));
       }
       return redirect("/board");
     }

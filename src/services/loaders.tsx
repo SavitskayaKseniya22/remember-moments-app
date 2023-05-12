@@ -16,3 +16,17 @@ export function boardLoaderWithoutActiveUser() {
   }
   return { user };
 }
+export function signoutLoader() {
+  const storage = window.localStorage;
+  storage.clear();
+  return storage;
+}
+
+export function userLoader() {
+  const storage = window.localStorage;
+  const storedActiveUser = storage.getItem("activeUser");
+  const activeUser = storedActiveUser ? JSON.parse(storedActiveUser) : null;
+  const storedUserData = storage.getItem("userData");
+  const userData = storedUserData ? JSON.parse(storedUserData) : null;
+  return { activeUser, userData };
+}

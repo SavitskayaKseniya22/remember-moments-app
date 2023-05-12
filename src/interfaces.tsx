@@ -5,7 +5,7 @@ export interface TimeTypes {
   [key: string]: number;
 }
 
-export interface UserContextType {
+export interface UserDataType {
   users: [
     {
       localId: string;
@@ -33,4 +33,12 @@ export interface UserContextType {
       customAuth: boolean;
     },
   ];
+}
+
+export interface UserTypes {
+  activeUser: {
+    email: string;
+    token: string;
+  };
+  userData: UserDataType;
 }

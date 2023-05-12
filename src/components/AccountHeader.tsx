@@ -1,8 +1,9 @@
 import { LogOut, LogIn } from "@styled-icons/boxicons-regular";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useRouteLoaderData } from "react-router-dom";
 import { StyledRedButton } from "../styledComponents/StyledButton";
+import { UserTypes } from "../interfaces";
 
 export const StyledAccountHeader = styled("div")`
   background: rgba(0, 0, 0, 0.4);
@@ -12,19 +13,24 @@ export const StyledAccountHeader = styled("div")`
   gap: 1rem;
 `;
 
+function checkName(user: UserTypes) {
+  const { userData } = user;
+  if (userData) {
+    const { displayName, email } = userData.users[0];
+    return displayName || email;
+  }
+  return "Stranger";
+}
+
 export function AccountHeader() {
-  const [name, setName] = useState("Stranger");
+  const user = useRouteLoaderData("root") as UserTypes;
+  const [name, setName] = useState(checkName(user));
   const navigate = useNavigate();
-  const storage = window.localStorage;
 
   useEffect(() => {
-    const userData = storage.getItem("activeUserData");
-    if (userData) {
-      const parsedData = JSON.parse(userData);
-      const { displayName, email } = parsedData.users[0];
-      setName(displayName || email);
-    }
-  });
+    const userName = checkName(user);
+    setName(userName);
+  }, [user]);
 
   return (
     <StyledAccountHeader>
@@ -32,10 +38,7 @@ export function AccountHeader() {
       {name !== "Stranger" ? (
         <StyledRedButton
           handleClick={() => {
-            storage.removeItem("activeUser");
-            storage.removeItem("activeUserData");
-            setName("Stranger");
-            navigate("/");
+            navigate("/auth/logout");
           }}
         >
           <LogOut title="LogOut" size="36" />

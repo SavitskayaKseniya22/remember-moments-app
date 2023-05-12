@@ -13,6 +13,8 @@ import { loginAction, regAction } from "../services/actions";
 import {
   boardLoaderWithActiveUser,
   boardLoaderWithoutActiveUser,
+  signoutLoader,
+  userLoader,
 } from "../services/loaders";
 import { AuthForm } from "./AuthForm";
 import { Footer } from "./Footer";
@@ -32,7 +34,12 @@ const router = createBrowserRouter(
         </>
       }
     >
-      <Route path="/" errorElement={<ErrorPage />}>
+      <Route
+        path="/"
+        errorElement={<ErrorPage />}
+        loader={userLoader}
+        id="root"
+      >
         <Route
           index
           element={<MainPage />}
@@ -40,18 +47,18 @@ const router = createBrowserRouter(
         />
 
         <Route path="auth">
-          <Route
-            index
-            loader={boardLoaderWithActiveUser}
-            element={<Navigate to="login" />}
-          />
+          <Route index element={<Navigate to="login" />} />
           <Route
             path="login"
             element={<AuthForm type="login" />}
             action={loginAction}
             loader={boardLoaderWithActiveUser}
           />
-
+          <Route
+            path="logout"
+            loader={signoutLoader}
+            element={<Navigate to="/auth" />}
+          />
           <Route
             path="registration"
             element={<AuthForm type="registration" />}
