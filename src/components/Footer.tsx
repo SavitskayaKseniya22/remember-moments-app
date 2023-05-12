@@ -7,8 +7,6 @@ import { StyledRedButton } from "../styledComponents/StyledButton";
 
 export const StyledFooter = styled("footer")`
   background: rgba(0, 0, 0, 0.5);
-  font-size: 1rem;
-  text-align: center;
   display: flex;
   align-items: center;
   justify-content: space-between;

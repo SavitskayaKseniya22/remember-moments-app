@@ -12,6 +12,7 @@ export const StyledForm = styled(Form)`
   flex-direction: column;
   gap: 1rem;
   width: 15%;
+  min-width: 300px;
 `;
 
 export const StyledInput = styled("input")`
