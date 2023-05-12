@@ -6,8 +6,9 @@ import {
   createRoutesFromElements,
   Navigate,
 } from "react-router-dom";
-import App from "../App";
+
 import ErrorPage from "../pages/ErrorPage";
+import { MainPage } from "../pages/MainPage";
 import { loginAction, regAction } from "../services/actions";
 import {
   boardLoaderWithActiveUser,
@@ -32,7 +33,11 @@ const router = createBrowserRouter(
       }
     >
       <Route path="/" errorElement={<ErrorPage />}>
-        <Route index element={<App />} loader={boardLoaderWithActiveUser} />
+        <Route
+          index
+          element={<MainPage />}
+          loader={boardLoaderWithActiveUser}
+        />
 
         <Route path="auth">
           <Route
@@ -46,6 +51,7 @@ const router = createBrowserRouter(
             action={loginAction}
             loader={boardLoaderWithActiveUser}
           />
+
           <Route
             path="registration"
             element={<AuthForm type="registration" />}

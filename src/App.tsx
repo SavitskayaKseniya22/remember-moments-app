@@ -1,8 +1,15 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
+import router from "./components/Router";
+import { GlobalStyle } from "./styledComponents/GlobalStyle";
 
 function App() {
-  return <Outlet />;
+  return (
+    <>
+      <RouterProvider router={router} />
+      <GlobalStyle />
+    </>
+  );
 }
 
 export default App;
