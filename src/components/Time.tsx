@@ -2,17 +2,18 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 export const StyledTimeBox = styled("div")`
-  flex-grow: 2;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1rem;
   text-align: center;
 `;
 
 export const StyledTime = styled("span")`
   font-weight: bold;
-  font-size: 2rem;
+  font-size: 1.5rem;
 `;
 export const StyledDate = styled("span")`
   font-weight: normal;
-  font-size: 1.5rem;
+  font-size: 1rem;
 `;
 
 export function Time() {

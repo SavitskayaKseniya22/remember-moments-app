@@ -9,6 +9,10 @@ export const StyledBasicButton = styled(Button)`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  &:disabled {
+    color: gray;
+  }
 `;
 
 export const StyledRedButton = styled(StyledBasicButton)`
@@ -16,10 +20,4 @@ export const StyledRedButton = styled(StyledBasicButton)`
 `;
 export const StyledRedOutlineButton = styled(StyledBasicButton)`
   border: 1px solid #fd6e09;
-`;
-
-export const BackButton = styled(StyledRedButton)`
-  position: fixed;
-  bottom: 3rem;
-  right: 3rem;
 `;
