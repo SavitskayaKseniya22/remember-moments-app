@@ -5,9 +5,7 @@ export const StyledMainContent = styled("main")`
   background-color: rgba(0, 0, 0, 0.3);
   flex-grow: 1;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  padding: 1rem;
 `;
 
 export function MainContent({

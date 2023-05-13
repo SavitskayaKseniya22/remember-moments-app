@@ -19,7 +19,8 @@ import {
 import { AuthForm } from "./AuthForm";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
-import { MainContent } from "./MainContent";
+
+import { Board } from "./Board";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -27,9 +28,7 @@ const router = createBrowserRouter(
       element={
         <>
           <Header />
-          <MainContent>
-            <Outlet />
-          </MainContent>
+          <Outlet />
           <Footer />
         </>
       }
@@ -68,7 +67,7 @@ const router = createBrowserRouter(
 
         <Route
           path="board"
-          element={<div>Board</div>}
+          element={<Board />}
           loader={boardLoaderWithoutActiveUser}
         />
         <Route path="settings" element="<div>Settings</div>" />
