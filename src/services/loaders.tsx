@@ -19,7 +19,7 @@ export function boardLoaderWithoutActiveUser() {
 export function signoutLoader() {
   const storage = window.localStorage;
   storage.clear();
-  return storage;
+  return redirect("/auth");
 }
 
 export function userLoader() {

@@ -39,6 +39,7 @@ const router = createBrowserRouter(
         errorElement={<ErrorPage />}
         loader={userLoader}
         id="root"
+        element={<Outlet />}
       >
         <Route
           index
@@ -46,24 +47,22 @@ const router = createBrowserRouter(
           loader={boardLoaderWithActiveUser}
         />
 
-        <Route path="auth">
+        <Route
+          path="auth"
+          element={<Outlet />}
+          loader={boardLoaderWithActiveUser}
+        >
           <Route index element={<Navigate to="login" />} />
           <Route
             path="login"
             element={<AuthForm type="login" />}
             action={loginAction}
-            loader={boardLoaderWithActiveUser}
           />
-          <Route
-            path="logout"
-            loader={signoutLoader}
-            element={<Navigate to="/auth" />}
-          />
+          <Route path="logout" loader={signoutLoader} />
           <Route
             path="registration"
             element={<AuthForm type="registration" />}
             action={regAction}
-            loader={boardLoaderWithActiveUser}
           />
         </Route>
 
