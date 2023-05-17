@@ -37,3 +37,11 @@ export function formatDataToSend(data: FormData) {
     returnSecureToken: true,
   };
 }
+
+export function IsItDay() {
+  const hours = new Date().getHours();
+  if (hours < 12) {
+    return true;
+  }
+  return false;
+}
