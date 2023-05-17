@@ -35,7 +35,7 @@ export const StyledTransparentButton = styled(StyledBasicButton)`
 export function Weather() {
   const [name, setName] = useState<string | undefined>();
   const [weather, setWeather] = useState<WeatherTypes | undefined>();
-  const [isEditing, setIsEditing] = useState<boolean>();
+  const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const { register, handleSubmit, setValue } = useForm();
   const storage = window.localStorage;
@@ -51,7 +51,7 @@ export function Weather() {
       );
       setWeather(weatherResponse);
     }
-    setIsEditing(!isEditing);
+    setIsEditing(false);
   });
 
   useEffect(() => {
@@ -81,7 +81,7 @@ export function Weather() {
   return (
     <StyledWeather>
       <Form method="get" onSubmit={onSubmit}>
-        {isEditing ? (
+        {isEditing || !weather ? (
           <StyledTransparentInput
             type="text"
             placeholder="city"
@@ -92,7 +92,7 @@ export function Weather() {
           <StyledTransparentButton
             type="button"
             handleClick={() => {
-              setIsEditing(!isEditing);
+              setIsEditing(true);
             }}
           >
             {name}
