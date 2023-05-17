@@ -2,11 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import { Time } from "./Time";
 import { Weather } from "./Weather";
+import { flexboxLineStyle } from "../styledComponents/SharedStyles";
 
 export const StyledInfoHeader = styled("div")`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  ${flexboxLineStyle}
   background: rgba(0, 0, 0, 0.5);
   padding: 1rem;
 `;

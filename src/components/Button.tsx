@@ -8,7 +8,7 @@ function Button({
   disabled,
   handleClick,
 }: {
-  children: JSX.Element | JSX.Element[] | string;
+  children: JSX.Element | JSX.Element[] | string | undefined;
 
   type?: "button" | "submit" | "reset" | undefined;
   className?: string;

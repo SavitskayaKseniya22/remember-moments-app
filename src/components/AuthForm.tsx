@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { Form, useNavigate } from "react-router-dom";
 import { StyledRedOutlineButton } from "../styledComponents/StyledButton";
+import { flexboxLineStyle } from "../styledComponents/SharedStyles";
 
 export const StyledForm = styled(Form)`
   background-color: white;
@@ -16,7 +17,6 @@ export const StyledForm = styled(Form)`
 `;
 
 export const StyledInput = styled("input")`
-  background-color: #fcdffd;
   padding: 0.5rem;
   color: black;
   border: none;
@@ -24,9 +24,12 @@ export const StyledInput = styled("input")`
   text-align: center;
 `;
 
+export const StyledPinkInput = styled(StyledInput)`
+  background-color: #fcdffd;
+`;
+
 export const StyledButtonList = styled("div")`
-  display: flex;
-  justify-content: space-between;
+  ${flexboxLineStyle}
   gap: 1rem;
   * {
     width: 50%;
@@ -39,13 +42,13 @@ export function AuthForm({ type }: { type: string }) {
 
   return (
     <StyledForm method="post">
-      <StyledInput
+      <StyledPinkInput
         type="email"
         placeholder="email"
         defaultValue=""
         {...register("email")}
       />
-      <StyledInput
+      <StyledPinkInput
         type="password"
         placeholder="password"
         defaultValue=""

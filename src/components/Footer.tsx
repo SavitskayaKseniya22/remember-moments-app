@@ -4,12 +4,11 @@ import { Cog } from "@styled-icons/boxicons-regular";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ReturnDownBack } from "@styled-icons/ionicons-outline";
 import { StyledRedButton } from "../styledComponents/StyledButton";
+import { flexboxLineStyle } from "../styledComponents/SharedStyles";
 
 export const StyledFooter = styled("footer")`
   background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  ${flexboxLineStyle}
 `;
 
 export function Footer() {
