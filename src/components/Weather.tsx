@@ -2,23 +2,46 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import { StyledForm, StyledInput } from "./AuthForm";
+import { Form } from "react-router-dom";
+import { StyledInput } from "./AuthForm";
 import { getCoordsForCity, getWeather } from "../services/apiService";
 import { WeatherTypes } from "../interfaces";
+import { StyledBasicButton } from "../styledComponents/StyledButton";
+import {
+  flexboxLineStyle,
+  transparentStyle,
+} from "../styledComponents/SharedStyles";
 
 export const StyledWeather = styled("div")`
-  background-color: white;
+  ${flexboxLineStyle}
+  gap: 1rem;
+
+  div {
+    ${flexboxLineStyle}
+    gap: 0.5rem;
+  }
+`;
+
+export const StyledTransparentInput = styled(StyledInput)`
+  ${transparentStyle}
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+`;
+
+export const StyledTransparentButton = styled(StyledBasicButton)`
+  ${transparentStyle}
+  border-bottom: 1px solid rgba(0, 0, 0, 0);
 `;
 
 export function Weather() {
   const [name, setName] = useState<string | undefined>();
   const [weather, setWeather] = useState<WeatherTypes | undefined>();
+  const [isEditing, setIsEditing] = useState<boolean>();
+
   const { register, handleSubmit, setValue } = useForm();
   const storage = window.localStorage;
 
   const onSubmit = handleSubmit(async (data) => {
     const { cityName } = data;
-    console.log(cityName);
     const cityObjects = await getCoordsForCity(cityName);
     if (cityObjects.length) {
       setName(cityName);
@@ -28,6 +51,7 @@ export function Weather() {
       );
       setWeather(weatherResponse);
     }
+    setIsEditing(!isEditing);
   });
 
   useEffect(() => {
@@ -56,21 +80,35 @@ export function Weather() {
 
   return (
     <StyledWeather>
-      <StyledForm method="get" onSubmit={onSubmit}>
-        <StyledInput
-          type="text"
-          placeholder="city"
-          defaultValue={name}
-          {...register("cityName")}
-        />
-      </StyledForm>
-
-      <img
-        src={`https://openweathermap.org/img/wn/${weather?.weather[0].icon}.png`}
-        alt="weather icon"
-      />
-      <span> {weather?.weather[0].description}</span>
-      <span>{weather?.main.temp}</span>
+      <Form method="get" onSubmit={onSubmit}>
+        {isEditing ? (
+          <StyledTransparentInput
+            type="text"
+            placeholder="city"
+            defaultValue={name}
+            {...register("cityName")}
+          />
+        ) : (
+          <StyledTransparentButton
+            type="button"
+            handleClick={() => {
+              setIsEditing(!isEditing);
+            }}
+          >
+            {name}
+          </StyledTransparentButton>
+        )}
+      </Form>
+      {weather && (
+        <div>
+          <img
+            src={`https://openweathermap.org/img/wn/${weather?.weather[0].icon}.png`}
+            alt="weather icon"
+            title={`${weather?.weather[0].description}`}
+          />
+          {weather?.main.temp}&deg;
+        </div>
+      )}
     </StyledWeather>
   );
 }
