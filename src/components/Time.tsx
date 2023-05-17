@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 export const StyledTimeBox = styled("div")`
-  background: rgba(0, 0, 0, 0.5);
-  padding: 1rem;
-  text-align: center;
+  flex-grow: 1;
 `;
 
 export const StyledTime = styled("span")`
