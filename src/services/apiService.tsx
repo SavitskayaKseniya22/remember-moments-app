@@ -86,7 +86,7 @@ export async function getCoordsForCity(cityName: string) {
 export async function getWeather(lat: string, lon: string) {
   const key = weatherApiKey;
   const response: Response = await fetch(
-    `https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}`,
+    `https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}&units=metric&lang=en`,
     {
       method: "GET",
 

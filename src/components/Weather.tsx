@@ -1,8 +1,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { Form } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { StyledInput } from "./AuthForm";
 import { getCoordsForCity, getWeather } from "../services/apiService";
 import { WeatherTypes } from "../interfaces";
@@ -11,6 +12,8 @@ import {
   flexboxLineStyle,
   transparentStyle,
 } from "../styledComponents/SharedStyles";
+import { RootState } from "../store/store";
+import { updateCity, updateWeather } from "../store/weatherSlice";
 
 export const StyledWeather = styled("div")`
   ${flexboxLineStyle}
@@ -33,59 +36,43 @@ export const StyledTransparentButton = styled(StyledBasicButton)`
 `;
 
 export function Weather() {
-  const [name, setName] = useState<string | undefined>();
-  const [weather, setWeather] = useState<WeatherTypes | undefined>();
-  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const { city, description } = useSelector(
+    (state: RootState) => state.weather,
+  );
 
-  const { register, handleSubmit, setValue } = useForm();
-  const storage = window.localStorage;
+  const dispatch = useDispatch();
+
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const { register, handleSubmit } = useForm();
 
   const onSubmit = handleSubmit(async (data) => {
     const { cityName } = data;
     const cityObjects = await getCoordsForCity(cityName);
     if (cityObjects.length) {
-      setName(cityName);
-      const weatherResponse = await getWeather(
+      const weatherResponse: WeatherTypes = await getWeather(
         cityObjects[0].lat,
         cityObjects[0].lon,
       );
-      setWeather(weatherResponse);
+      dispatch(updateCity(weatherResponse.name));
+      dispatch(updateWeather(weatherResponse));
+      setIsEditing(false);
     }
-    setIsEditing(false);
   });
-
-  useEffect(() => {
-    const storedCityName = storage.getItem("cityName");
-    const storedWeather = storage.getItem("cityWeather");
-    if (storedCityName) {
-      setName(storedCityName);
-      setValue("cityName", storedCityName);
-    }
-    if (storedWeather) {
-      setWeather(JSON.parse(storedWeather));
-    }
-  }, []);
-
-  useEffect(() => {
-    if (name) {
-      storage.setItem("cityName", String(name));
-    }
-  }, [name]);
-
-  useEffect(() => {
-    if (weather) {
-      storage.setItem("cityWeather", JSON.stringify(weather));
-    }
-  }, [weather]);
 
   return (
     <StyledWeather>
-      <Form method="get" onSubmit={onSubmit}>
-        {isEditing || !weather ? (
+      <Form
+        method="get"
+        onSubmit={onSubmit}
+        onBlur={() => {
+          setIsEditing(false);
+        }}
+      >
+        {isEditing || !(city && description) ? (
           <StyledTransparentInput
             type="text"
             placeholder="city"
-            defaultValue={name}
+            defaultValue={city}
             {...register("cityName")}
           />
         ) : (
@@ -95,18 +82,18 @@ export function Weather() {
               setIsEditing(true);
             }}
           >
-            {name}
+            {city}
           </StyledTransparentButton>
         )}
       </Form>
-      {weather && (
+      {description && (
         <div>
           <img
-            src={`https://openweathermap.org/img/wn/${weather?.weather[0].icon}.png`}
+            src={`https://openweathermap.org/img/wn/${description?.weather[0].icon}.png`}
             alt="weather icon"
-            title={`${weather?.weather[0].description}`}
+            title={`${description?.weather[0].description}`}
           />
-          {weather?.main.temp}&deg;
+          {description?.main.temp}&deg;
         </div>
       )}
     </StyledWeather>
