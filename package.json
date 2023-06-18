@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@hookform/error-message": "^2.0.1",
     "@reduxjs/toolkit": "^1.9.5",
     "@styled-icons/boxicons-regular": "^10.47.0",
     "@styled-icons/ionicons-outline": "^10.46.0",

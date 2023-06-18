@@ -43,6 +43,15 @@ export interface UserTypes {
   userData: UserDataType;
 }
 
+export interface GeoTypes {
+  name: string;
+  local_names: { [x: string]: string };
+  lat: number;
+  lon: number;
+  country: string;
+  state: string;
+}
+
 export interface WeatherTypes {
   coord: {
     lon: number;

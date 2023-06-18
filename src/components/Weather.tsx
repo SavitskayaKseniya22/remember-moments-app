@@ -4,16 +4,17 @@ import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { Form } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { ErrorMessage } from "@hookform/error-message";
 import { StyledInput } from "./AuthForm";
 import { getCoordsForCity, getWeather } from "../services/apiService";
-import { WeatherTypes } from "../interfaces";
+import { GeoTypes, WeatherTypes } from "../interfaces";
 import { StyledBasicButton } from "../styledComponents/StyledButton";
 import {
   flexboxLineStyle,
   transparentStyle,
 } from "../styledComponents/SharedStyles";
 import { RootState } from "../store/store";
-import { updateCity, updateWeather } from "../store/weatherSlice";
+import { updateGeo, updateWeather } from "../store/weatherSlice";
 
 export const StyledWeather = styled("div")`
   ${flexboxLineStyle}
@@ -36,26 +37,39 @@ export const StyledTransparentButton = styled(StyledBasicButton)`
 `;
 
 export function Weather() {
-  const { city, description } = useSelector(
-    (state: RootState) => state.weather,
-  );
+  const { geo, description } = useSelector((state: RootState) => state.weather);
 
   const dispatch = useDispatch();
 
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const { register, handleSubmit } = useForm();
+  const [cityObjects, setCityObjects] = useState<GeoTypes[] | undefined>(
+    undefined,
+  );
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    clearErrors,
+  } = useForm({
+    mode: "onSubmit",
+    reValidateMode: "onChange",
+  });
 
   const onSubmit = handleSubmit(async (data) => {
     const { cityName } = data;
-    const cityObjects = await getCoordsForCity(cityName);
-    if (cityObjects.length) {
+
+    const cityObjectsResponse = await getCoordsForCity(cityName);
+    setCityObjects(cityObjectsResponse);
+    if (cityObjectsResponse.length === 1) {
       const weatherResponse: WeatherTypes = await getWeather(
-        cityObjects[0].lat,
-        cityObjects[0].lon,
+        cityObjectsResponse[0].lat,
+        cityObjectsResponse[0].lon,
       );
-      dispatch(updateCity(weatherResponse.name));
+      dispatch(updateGeo(cityObjectsResponse[0]));
       dispatch(updateWeather(weatherResponse));
       setIsEditing(false);
+      setCityObjects(undefined);
     }
   });
 
@@ -66,14 +80,28 @@ export function Weather() {
         onSubmit={onSubmit}
         onBlur={() => {
           setIsEditing(false);
+          clearErrors();
         }}
       >
-        {isEditing || !(city && description) ? (
+        {isEditing || !geo ? (
           <StyledTransparentInput
             type="text"
             placeholder="city"
-            defaultValue={city}
-            {...register("cityName")}
+            defaultValue={geo?.name}
+            {...register("cityName", {
+              required: {
+                value: true,
+                message: "This is required",
+              },
+              pattern: {
+                value: /[A-Za-z]+/,
+                message: "Name must contain only letters",
+              },
+              minLength: {
+                value: 3,
+                message: "Name is too short",
+              },
+            })}
           />
         ) : (
           <StyledTransparentButton
@@ -82,10 +110,11 @@ export function Weather() {
               setIsEditing(true);
             }}
           >
-            {city}
+            {`${geo?.name}, ${geo?.state}, ${geo?.country}`}
           </StyledTransparentButton>
         )}
       </Form>
+      <ErrorMessage errors={errors} name="cityName" />
       {description && (
         <div>
           <img
@@ -96,6 +125,25 @@ export function Weather() {
           {description?.main.temp}&deg;
         </div>
       )}
+      {cityObjects &&
+        cityObjects.map((elem) => (
+          <button
+            type="button"
+            onClick={async () => {
+              const weatherResponse: WeatherTypes = await getWeather(
+                elem.lat,
+                elem.lon,
+              );
+              dispatch(updateGeo(elem));
+              dispatch(updateWeather(weatherResponse));
+              setIsEditing(false);
+              setCityObjects(undefined);
+            }}
+            key={elem.lat}
+          >
+            {`${elem.state ? `${elem.state},` : ""} ${elem.country}`}
+          </button>
+        ))}
     </StyledWeather>
   );
 }
