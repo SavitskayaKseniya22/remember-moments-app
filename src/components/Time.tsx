@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 
 export const StyledTimeBox = styled("div")`
@@ -16,17 +17,21 @@ export const StyledDate = styled("span")`
 
 export function Time() {
   const [time, setTime] = useState(new Date());
+  const { i18n } = useTranslation();
 
   useEffect(() => {
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       setTime(new Date());
     }, 1000);
+    return () => {
+      clearTimeout(timeoutId);
+    };
   });
 
   return (
     <StyledTimeBox>
       <StyledTime>
-        {time.toLocaleTimeString("en-Us", {
+        {time.toLocaleTimeString(i18n.language, {
           hour: "2-digit",
           minute: "2-digit",
           second: "2-digit",
@@ -35,7 +40,7 @@ export function Time() {
 
       <br />
       <StyledDate>
-        {time.toLocaleDateString("en-Us", {
+        {time.toLocaleDateString(i18n.language, {
           weekday: "long",
           year: "numeric",
           month: "long",

@@ -1,0 +1,21 @@
+{
+  "madeBy": "made by Kseniia Savitskaia in 2023",
+  "settings": {
+    "theme": {
+      "title": "Theme",
+      "colorful": "Colorful",
+      "blend": "Blend"
+    },
+    "lang": {
+      "title": "Language",
+      "en": "English",
+      "ru": "Russian"
+    }
+  },
+  "formValidation": {
+    "required": "This is required",
+    "onlyLetters": "The value must contain only letters",
+    "short": "The value is too short",
+    "email": "Entered value does not match email format"
+  }
+}

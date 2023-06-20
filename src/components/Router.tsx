@@ -21,6 +21,7 @@ import { Footer } from "./Footer";
 import { Header } from "./Header";
 
 import { Board } from "./Board";
+import { Settings } from "./Settings";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -70,7 +71,7 @@ const router = createBrowserRouter(
           element={<Board />}
           loader={boardLoaderWithoutActiveUser}
         />
-        <Route path="settings" element="<div>Settings</div>" />
+        <Route path="settings" element={<Settings />} />
         <Route path="*" element="<div>404</div>" />
       </Route>
     </Route>,

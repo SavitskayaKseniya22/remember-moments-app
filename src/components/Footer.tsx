@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Cog } from "@styled-icons/boxicons-regular";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ReturnDownBack } from "@styled-icons/ionicons-outline";
+import { useTranslation } from "react-i18next";
 import { StyledRedButton } from "../styledComponents/StyledButton";
 import { flexboxLineStyle } from "../styledComponents/SharedStyles";
 
@@ -14,6 +15,7 @@ export const StyledFooter = styled("footer")`
 export function Footer() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useTranslation();
 
   return (
     <StyledFooter>
@@ -26,7 +28,7 @@ export function Footer() {
         <Cog title="Settings" size="36" />
       </StyledRedButton>
 
-      <span>made by Kseniia Savitskaia in 2023</span>
+      <span>{t("madeBy")}</span>
 
       <StyledRedButton
         handleClick={() => {

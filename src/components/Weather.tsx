@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { Form } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ErrorMessage } from "@hookform/error-message";
+import { useTranslation } from "react-i18next";
 import { StyledInput } from "./AuthForm";
 import { getCoordsForCity, getWeather } from "../services/apiService";
 import { GeoTypes, WeatherTypes } from "../interfaces";
@@ -38,6 +39,7 @@ export const StyledTransparentButton = styled(StyledBasicButton)`
 
 export function Weather() {
   const { geo, description } = useSelector((state: RootState) => state.weather);
+  const { t, i18n } = useTranslation();
 
   const dispatch = useDispatch();
 
@@ -87,19 +89,21 @@ export function Weather() {
           <StyledTransparentInput
             type="text"
             placeholder="city"
-            defaultValue={geo?.name}
+            defaultValue={
+              (geo?.local_names && geo?.local_names[i18n.language]) || geo?.name
+            }
             {...register("cityName", {
               required: {
                 value: true,
-                message: "This is required",
+                message: t("formValidation.required"),
               },
               pattern: {
-                value: /[A-Za-z]+/,
-                message: "Name must contain only letters",
+                value: /[A-Za-zА-Яа-я]+/,
+                message: t("formValidation.onlyLetters"),
               },
               minLength: {
                 value: 3,
-                message: "Name is too short",
+                message: t("formValidation.short"),
               },
             })}
           />
@@ -110,7 +114,11 @@ export function Weather() {
               setIsEditing(true);
             }}
           >
-            {`${geo?.name}, ${geo?.state}, ${geo?.country}`}
+            {`${
+              (geo?.local_names && geo?.local_names[i18n.language]) || geo?.name
+            }, ${geo?.state !== geo?.name ? `${geo?.state},` : ""} ${
+              geo?.country
+            }`}
           </StyledTransparentButton>
         )}
       </Form>

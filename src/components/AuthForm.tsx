@@ -3,6 +3,7 @@ import React from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { Form, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { StyledRedOutlineButton } from "../styledComponents/StyledButton";
 import { flexboxLineStyle } from "../styledComponents/SharedStyles";
 
@@ -39,6 +40,7 @@ export const StyledButtonList = styled("div")`
 export function AuthForm({ type }: { type: string }) {
   const navigate = useNavigate();
   const { register } = useForm();
+  const { t } = useTranslation();
 
   return (
     <StyledForm method="post">
@@ -46,13 +48,31 @@ export function AuthForm({ type }: { type: string }) {
         type="email"
         placeholder="email"
         defaultValue=""
-        {...register("email")}
+        {...register("email", {
+          required: {
+            value: true,
+            message: t("formValidation.required"),
+          },
+          pattern: {
+            value: /\S+@\S+\.\S+/,
+            message: t("formValidation.email"),
+          },
+        })}
       />
       <StyledPinkInput
         type="password"
         placeholder="password"
         defaultValue=""
-        {...register("password")}
+        {...register("password", {
+          required: {
+            value: true,
+            message: t("formValidation.required"),
+          },
+          minLength: {
+            value: 5,
+            message: t("formValidation.short"),
+          },
+        })}
       />
       <StyledButtonList>
         <StyledRedOutlineButton type="submit">Enter</StyledRedOutlineButton>
