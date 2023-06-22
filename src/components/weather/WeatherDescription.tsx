@@ -6,7 +6,7 @@ import { RootState } from "../../store/store";
 function WeatherDescription() {
   const { geo } = useSelector((state: RootState) => state.persist.weather);
   const [skipGetWeather, setSkipGetWeather] = useState(true);
-  const { data } = useGetWeatherQuery(
+  const { data, refetch } = useGetWeatherQuery(
     {
       lat: geo?.lat || 0,
       lon: geo?.lon || 0,
@@ -29,6 +29,9 @@ function WeatherDescription() {
           title={`${data?.weather[0].description}`}
         />
         {data?.main.temp}&deg;
+        <button type="button" onClick={refetch}>
+          update
+        </button>
       </div>
     )
   );
