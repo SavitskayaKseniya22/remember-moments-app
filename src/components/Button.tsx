@@ -9,7 +9,6 @@ function Button({
   handleClick,
 }: {
   children: JSX.Element | JSX.Element[] | string | undefined;
-
   type?: "button" | "submit" | "reset" | undefined;
   className?: string;
   disabled?: boolean;

@@ -18,7 +18,9 @@ export const StyledSettingsItem = styled("li")`
 `;
 
 export function Settings() {
-  const { lang, theme } = useSelector((state: RootState) => state.settings);
+  const { lang, theme } = useSelector(
+    (state: RootState) => state.persist.settings,
+  );
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
 

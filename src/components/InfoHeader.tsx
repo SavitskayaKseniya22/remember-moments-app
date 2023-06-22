@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Time } from "./Time";
-import { Weather } from "./Weather";
+import { WeatherContainer } from "./weather/WeatherContainer";
 import { flexboxLineStyle } from "../styledComponents/SharedStyles";
 
 export const StyledInfoHeader = styled("div")`
@@ -14,7 +14,7 @@ export function InfoHeader() {
   return (
     <StyledInfoHeader>
       <Time />
-      <Weather />
+      <WeatherContainer />
     </StyledInfoHeader>
   );
 }

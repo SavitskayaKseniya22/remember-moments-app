@@ -1,31 +1,50 @@
 /* eslint-disable no-param-reassign */
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
-import { GeoTypes, WeatherTypes } from "../interfaces";
+
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { GeoTypes } from "../interfaces";
+import weatherApiKey from "../services/openweather";
+
+export const weatherApi = createApi({
+  reducerPath: "weatherApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl:
+      "https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/",
+  }),
+  endpoints: (builder) => ({
+    getMatchedCities: builder.query({
+      query: ({ cityName }: { cityName: string }) =>
+        `geo/1.0/direct?q=${cityName}&limit=5&appid=${weatherApiKey}`,
+      keepUnusedDataFor: 0,
+    }),
+    getWeather: builder.query({
+      query: ({ lat, lon }: { lat: number; lon: number }) =>
+        `data/2.5/weather?lat=${lat}&lon=${lon}&appid=${weatherApiKey}&units=metric&lang=en`,
+      keepUnusedDataFor: 0,
+    }),
+  }),
+});
+
+export const { useGetMatchedCitiesQuery, useGetWeatherQuery } = weatherApi;
 
 export interface WeatherState {
   geo: GeoTypes | undefined;
-  description: WeatherTypes | undefined;
 }
 
 const initialState: WeatherState = {
   geo: undefined,
-  description: undefined,
 };
 
 export const weatherSlice = createSlice({
   name: "weather",
   initialState,
   reducers: {
-    updateWeather: (state, action: PayloadAction<WeatherTypes>) => {
-      state.description = action.payload;
-    },
     updateGeo: (state, action: PayloadAction<GeoTypes>) => {
       state.geo = action.payload;
     },
   },
 });
 
-export const { updateWeather, updateGeo } = weatherSlice.actions;
+export const { updateGeo } = weatherSlice.actions;
 
 export default weatherSlice.reducer;

@@ -16,6 +16,7 @@
     "required": "This is required",
     "onlyLetters": "The value must contain only letters",
     "short": "The value is too short",
-    "email": "Entered value does not match email format"
+    "email": "Entered value does not match email format",
+    "noMatches": "No matches found"
   }
 }

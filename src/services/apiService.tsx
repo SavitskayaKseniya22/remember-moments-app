@@ -43,8 +43,11 @@ export async function signIn(data: {
       body: JSON.stringify(data),
     },
   );
-  const result = await response.json();
 
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+  const result = await response.json();
   return result;
 }
 
@@ -62,28 +65,37 @@ export async function getUserData(token: string) {
       body: JSON.stringify({ idToken: token }),
     },
   );
-  const result = await response.json();
 
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+
+  const result = await response.json();
   return result;
 }
 
 export async function getCoordsForCity(cityName: string) {
   const key = weatherApiKey;
+
   const response: Response = await fetch(
     `https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=${key}`,
     {
       method: "GET",
-
       headers: {
         "Content-Type": "application/json",
       },
     },
   );
+
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+
   const result = await response.json();
   return result;
 }
 
-export async function getWeather(lat: number, lon: number) {
+export async function getWeatherForCity(lat: number, lon: number) {
   const key = weatherApiKey;
   const response: Response = await fetch(
     `https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}&units=metric&lang=en`,
@@ -95,6 +107,9 @@ export async function getWeather(lat: number, lon: number) {
       },
     },
   );
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
   const result = await response.json();
   return result;
 }
