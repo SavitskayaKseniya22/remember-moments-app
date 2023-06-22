@@ -4,6 +4,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { GeoTypes } from "../interfaces";
 import weatherApiKey from "../services/openweather";
+import { filterData } from "../utils";
 
 export const weatherApi = createApi({
   reducerPath: "weatherApi",
@@ -15,6 +16,9 @@ export const weatherApi = createApi({
     getMatchedCities: builder.query({
       query: ({ cityName }: { cityName: string }) =>
         `geo/1.0/direct?q=${cityName}&limit=5&appid=${weatherApiKey}`,
+      transformResponse: (response: GeoTypes[]) => {
+        return filterData(response);
+      },
       keepUnusedDataFor: 0,
     }),
     getWeather: builder.query({

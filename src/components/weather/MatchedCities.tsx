@@ -41,22 +41,25 @@ function MatchedCities({
   }, [data, dispatch]);
 
   return (
-    data &&
-    isOpen &&
-    (data as GeoTypes[]).map((elem) => (
-      <button
-        type="button"
-        onClick={async () => {
-          setIsOpen(false);
-          dispatch(updateGeo(elem));
-        }}
-        key={elem.lat}
-      >
-        {`${elem?.name}, ${
-          elem.state && elem?.state !== elem?.name ? `${elem.state},` : ""
-        } ${elem.country}`}
-      </button>
-    ))
+    // eslint-disable-next-line react/jsx-no-useless-fragment
+    <>
+      {data &&
+        isOpen &&
+        (data as GeoTypes[]).map((elem) => (
+          <button
+            type="button"
+            onClick={async () => {
+              setIsOpen(false);
+              dispatch(updateGeo(elem));
+            }}
+            key={elem.lat}
+          >
+            {`${elem?.name}, ${
+              elem.state && elem?.state !== elem?.name ? `${elem.state},` : ""
+            } ${elem.country}`}
+          </button>
+        ))}
+    </>
   );
 }
 

@@ -1,3 +1,5 @@
+import { GeoTypes } from "./interfaces";
+
 export function getTime() {
   const date = new Date();
   const hours = date.getHours();
@@ -44,4 +46,23 @@ export function IsItDay() {
     return true;
   }
   return false;
+}
+
+export function filterData(data: GeoTypes[]) {
+  const shortedData = data.map((elem) => {
+    const copiedElem = Object.assign(elem);
+    copiedElem.lat = elem.lat.toFixed(1);
+    copiedElem.lon = elem.lon.toFixed(1);
+    return copiedElem;
+  });
+  const filteredData: GeoTypes[] = [];
+  shortedData.forEach((elem) => {
+    const matches = filteredData.filter((item) => {
+      return item.lon === elem.lon && item.lat === elem.lat;
+    });
+    if (matches.length === 0) {
+      filteredData.push(elem);
+    }
+  });
+  return filteredData;
 }
