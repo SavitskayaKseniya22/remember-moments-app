@@ -1,11 +1,19 @@
-import { LogOut, LogIn } from "@styled-icons/boxicons-regular";
+import {
+  LogOut,
+  LogIn,
+  UserCircle,
+  BookOpen,
+  HomeCircle,
+} from "@styled-icons/boxicons-regular";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
 import { StyledRedButton } from "../styledComponents/StyledButton";
 import { RootState } from "../store/store";
-import { ActiveUserTypes, resetActiveUser } from "../store/authSlice";
+import { resetActiveUser } from "../store/authSlice";
+import { ActiveUserTypes } from "../interfaces";
 
 export const StyledAccountHeader = styled("div")`
   background: rgba(0, 0, 0, 0.4);
@@ -38,13 +46,29 @@ export function AccountHeader() {
     <StyledAccountHeader>
       <span>Welcome, {name}!</span>
       {name !== "Stranger" ? (
-        <StyledRedButton
-          handleClick={() => {
-            dispatch(resetActiveUser());
-          }}
-        >
-          <LogOut title="LogOut" size="36" />
-        </StyledRedButton>
+        <>
+          <StyledRedButton
+            handleClick={() => {
+              dispatch(resetActiveUser());
+            }}
+          >
+            <LogOut title="LogOut" size="36" />
+          </StyledRedButton>
+          <StyledRedButton
+            handleClick={() => {
+              navigate("/profile");
+            }}
+          >
+            <UserCircle title="Profile" size="36" />
+          </StyledRedButton>
+          <StyledRedButton
+            handleClick={() => {
+              navigate("/board");
+            }}
+          >
+            <BookOpen title="Board" size="36" />
+          </StyledRedButton>
+        </>
       ) : (
         <StyledRedButton
           handleClick={() => {
@@ -54,6 +78,13 @@ export function AccountHeader() {
           <LogIn title="Login" size="36" />
         </StyledRedButton>
       )}
+      <StyledRedButton
+        handleClick={() => {
+          navigate("/");
+        }}
+      >
+        <HomeCircle title="Home" size="36" />
+      </StyledRedButton>
     </StyledAccountHeader>
   );
 }

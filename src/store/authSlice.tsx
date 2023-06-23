@@ -2,47 +2,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import firebaseConfig from "../services/firebase";
-
-export interface ActiveUserTypes {
-  kind: string;
-  localId: string;
-  email: string;
-  displayName: string;
-  idToken: string;
-  registered: boolean;
-  refreshToken: string;
-  expiresIn: string;
-}
-
-interface ActiveUserDataTypes {
-  users: [
-    {
-      localId: string;
-      email: string;
-      emailVerified: boolean;
-      displayName: string;
-      providerUserInfo: [
-        {
-          providerId: string;
-          displayName: string;
-          photoUrl: string;
-          federatedId: string;
-          email: string;
-          rawId: string;
-          screenName: string;
-        },
-      ];
-      photoUrl: string;
-      passwordHash: string;
-      passwordUpdatedAt: number;
-      validSince: string;
-      disabled: boolean;
-      lastLoginAt: string;
-      createdAt: string;
-      customAuth: boolean;
-    },
-  ];
-}
+import { ActiveUserTypes, ActiveUserDataTypes } from "../interfaces";
 
 export interface AuthState {
   activeUser: ActiveUserTypes | undefined;
@@ -120,7 +80,6 @@ export const authApi = createApi({
           returnSecureToken,
         },
       }),
-
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
@@ -139,8 +98,95 @@ export const authApi = createApi({
         },
       }),
     }),
+    changePassword: builder.mutation({
+      query: ({
+        idToken,
+        password,
+        returnSecureToken,
+      }: {
+        idToken: string;
+        password: string;
+        returnSecureToken: boolean;
+      }) => ({
+        url: `:update?key=${firebaseConfig.apiKey}`,
+        method: "POST",
+        body: {
+          idToken,
+          password,
+          returnSecureToken,
+        },
+      }),
+    }),
+    changeEmail: builder.mutation({
+      query: ({
+        idToken,
+        email,
+        returnSecureToken,
+      }: {
+        idToken: string;
+        email: string;
+        returnSecureToken: boolean;
+      }) => ({
+        url: `:update?key=${firebaseConfig.apiKey}`,
+        method: "POST",
+        body: {
+          idToken,
+          email,
+          returnSecureToken,
+        },
+      }),
+    }),
+    deleteProfile: builder.mutation({
+      query: ({ idToken }: { idToken: string }) => ({
+        url: `:delete?key=${firebaseConfig.apiKey}`,
+        method: "POST",
+        body: {
+          idToken,
+        },
+      }),
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          dispatch(resetActiveUser());
+        } catch (err) {
+          // `onError` side-effect
+        }
+      },
+    }),
+    updateProfile: builder.mutation({
+      query: ({
+        idToken,
+        displayName,
+        photoUrl,
+        deleteAttribute,
+        returnSecureToken,
+      }: {
+        idToken: string;
+        displayName: string;
+        photoUrl: string;
+        deleteAttribute: string[];
+        returnSecureToken: boolean;
+      }) => ({
+        url: `:delete?key=${firebaseConfig.apiKey}`,
+        method: "POST",
+        body: {
+          idToken,
+          displayName,
+          photoUrl,
+          deleteAttribute,
+          returnSecureToken,
+        },
+      }),
+    }),
   }),
 });
 
-export const { useSignUpMutation, useSignInMutation, useGetUserDataMutation } =
-  authApi;
+export const {
+  useSignUpMutation,
+  useSignInMutation,
+  useGetUserDataMutation,
+  useChangePasswordMutation,
+  useChangeEmailMutation,
+  useDeleteProfileMutation,
+  useUpdateProfileMutation,
+} = authApi;

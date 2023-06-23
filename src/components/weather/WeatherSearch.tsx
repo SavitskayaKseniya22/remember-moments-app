@@ -98,9 +98,9 @@ function WeatherSearch({
             setIsEditing(true);
           }}
         >
-          {`${geo?.name}, ${geo?.state !== geo?.name ? `${geo?.state},` : ""} ${
-            geo?.country
-          }`}
+          {`${geo?.name}, ${
+            geo?.state && geo?.state !== geo?.name ? `${geo?.state},` : ""
+          } ${geo?.country}`}
         </StyledTransparentButton>
       )}
       <ErrorMessage errors={errors} name="cityName" />

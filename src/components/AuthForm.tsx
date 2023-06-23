@@ -7,11 +7,7 @@ import { useTranslation } from "react-i18next";
 
 import { StyledRedOutlineButton } from "../styledComponents/StyledButton";
 import { flexboxLineStyle } from "../styledComponents/SharedStyles";
-import {
-  useGetUserDataMutation,
-  useSignInMutation,
-  useSignUpMutation,
-} from "../store/authSlice";
+import { useSignInMutation, useSignUpMutation } from "../store/authSlice";
 import { formatDataToSend } from "../utils";
 
 export const StyledForm = styled(Form)`
@@ -51,15 +47,14 @@ export function AuthForm({ type }: { type: string }) {
 
   const [signIn] = useSignInMutation();
   const [signUp] = useSignUpMutation();
-  const [getUserData] = useGetUserDataMutation();
 
   const onSubmit: SubmitHandler<FieldValues> = (formData) => {
     const dataToSend = formatDataToSend(formData);
     if (type === "login") {
       signIn(dataToSend)
         .unwrap()
-        .then((fulfilled) => {
-          getUserData(fulfilled.idToken);
+        .then(() => {
+          // getUserData(fulfilled.idToken);
           navigate("/board");
         })
         .catch((rejected) => console.error(rejected));
@@ -69,8 +64,8 @@ export function AuthForm({ type }: { type: string }) {
         .then(() =>
           signIn(dataToSend)
             .unwrap()
-            .then((fulfilled) => {
-              getUserData(fulfilled.idToken);
+            .then(() => {
+              // getUserData(fulfilled.idToken);
               navigate("/board");
             })
             .catch((rejected) => console.error(rejected)),
