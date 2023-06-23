@@ -1,3 +1,4 @@
+import { FieldValues } from "react-hook-form";
 import { GeoTypes } from "./interfaces";
 
 export function getTime() {
@@ -32,10 +33,10 @@ export function checkLS(key: string) {
   return storage.getItem(key);
 }
 
-export function formatDataToSend(data: FormData) {
+export function formatDataToSend(data: FieldValues) {
   return {
-    email: String(data.get("email")),
-    password: String(data.get("password")),
+    email: String(data.email),
+    password: String(data.password),
     returnSecureToken: true,
   };
 }

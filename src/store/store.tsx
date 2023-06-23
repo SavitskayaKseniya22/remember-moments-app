@@ -15,6 +15,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 import weatherReducer, { weatherApi } from "./weatherSlice";
 import settingsReducer from "./settingsSlice";
+import userReducer, { authApi } from "./authSlice";
 
 const persistConfig = {
   key: "remember-moments-app-root",
@@ -26,12 +27,14 @@ const persistedReducer = persistReducer(
   combineReducers({
     weather: weatherReducer,
     settings: settingsReducer,
+    user: userReducer,
   }),
 );
 
 const rootReducer = combineReducers({
   persist: persistedReducer,
   [weatherApi.reducerPath]: weatherApi.reducer,
+  [authApi.reducerPath]: authApi.reducer,
 });
 
 export const store = configureStore({
@@ -41,7 +44,9 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(weatherApi.middleware),
+    })
+      .concat(weatherApi.middleware)
+      .concat(authApi.middleware),
 });
 
 export const persistor = persistStore(store);

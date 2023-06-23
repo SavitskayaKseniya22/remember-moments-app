@@ -1,9 +1,11 @@
 import { LogOut, LogIn } from "@styled-icons/boxicons-regular";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useNavigate, useRouteLoaderData } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { StyledRedButton } from "../styledComponents/StyledButton";
-import { UserTypes } from "../interfaces";
+import { RootState } from "../store/store";
+import { ActiveUserTypes, resetActiveUser } from "../store/authSlice";
 
 export const StyledAccountHeader = styled("div")`
   background: rgba(0, 0, 0, 0.4);
@@ -13,24 +15,24 @@ export const StyledAccountHeader = styled("div")`
   gap: 1rem;
 `;
 
-function checkName(user: UserTypes) {
-  const { userData } = user;
-  if (userData) {
-    const { displayName, email } = userData.users[0];
+function checkName(user: ActiveUserTypes | undefined) {
+  if (user) {
+    const { displayName, email } = user;
     return displayName || email;
   }
   return "Stranger";
 }
 
 export function AccountHeader() {
-  const user = useRouteLoaderData("root") as UserTypes;
-  const [name, setName] = useState(checkName(user));
+  const { activeUser } = useSelector((state: RootState) => state.persist.user);
+  const [name, setName] = useState(checkName(activeUser));
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const userName = checkName(user);
+    const userName = checkName(activeUser);
     setName(userName);
-  }, [user]);
+  }, [activeUser]);
 
   return (
     <StyledAccountHeader>
@@ -38,7 +40,7 @@ export function AccountHeader() {
       {name !== "Stranger" ? (
         <StyledRedButton
           handleClick={() => {
-            navigate("/auth/logout");
+            dispatch(resetActiveUser());
           }}
         >
           <LogOut title="LogOut" size="36" />
