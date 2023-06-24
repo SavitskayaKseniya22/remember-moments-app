@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { Form } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { updateLang, updateTheme } from "../store/settingsSlice";
+import { updateTheme } from "../store/settingsSlice";
 import { RootState } from "../store/store";
 
 export const StyledSettings = styled("ul")`
@@ -18,22 +18,19 @@ export const StyledSettingsItem = styled("li")`
 `;
 
 export function Settings() {
-  const { lang, theme } = useSelector(
-    (state: RootState) => state.persist.settings,
-  );
+  const { theme } = useSelector((state: RootState) => state.persist.settings);
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
 
   const { register, getValues } = useForm({
     defaultValues: {
-      lang: lang || "en",
+      lang: i18n.language || "en",
       theme: theme || "colorful",
     },
   });
 
   const onChangeLang = () => {
     const langValue = getValues().lang;
-    dispatch(updateLang(langValue));
     i18n.changeLanguage(langValue);
   };
 
