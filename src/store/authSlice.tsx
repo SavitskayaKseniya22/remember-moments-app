@@ -116,6 +116,14 @@ export const authApi = createApi({
           returnSecureToken,
         },
       }),
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          dispatch(resetActiveUser());
+        } catch (err) {
+          // `onError` side-effect
+        }
+      },
     }),
     changeEmail: builder.mutation({
       query: ({
@@ -135,6 +143,14 @@ export const authApi = createApi({
           returnSecureToken,
         },
       }),
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          dispatch(resetActiveUser());
+        } catch (err) {
+          // `onError` side-effect
+        }
+      },
     }),
     deleteProfile: builder.mutation({
       query: ({ idToken }: { idToken: string }) => ({

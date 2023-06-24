@@ -22,9 +22,15 @@ function PrivateRoute() {
   const { activeUser } = useSelector((state: RootState) => state.persist.user);
   return !activeUser ? <Navigate to="/" /> : <Outlet />;
 }
+
 function PrivateAuthRoute() {
   const { activeUser } = useSelector((state: RootState) => state.persist.user);
   return activeUser ? <Navigate to="/board" /> : <Outlet />;
+}
+
+function PrivateProfileRoute() {
+  const { activeUser } = useSelector((state: RootState) => state.persist.user);
+  return !activeUser ? <Navigate to="/auth/login" /> : <Outlet />;
 }
 
 const router = createBrowserRouter(
@@ -57,6 +63,8 @@ const router = createBrowserRouter(
         </Route>
         <Route element={<PrivateRoute />}>
           <Route path="board" element={<Board />} />
+        </Route>
+        <Route element={<PrivateProfileRoute />}>
           <Route path="profile" element={<Profile />} />
         </Route>
         <Route path="settings" element={<Settings />} />
