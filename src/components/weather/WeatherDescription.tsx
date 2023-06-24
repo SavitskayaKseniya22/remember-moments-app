@@ -5,7 +5,7 @@ import { RootState } from "../../store/store";
 
 function WeatherDescription() {
   const { geo } = useSelector((state: RootState) => state.persist.weather);
-  const [skipGetWeather, setSkipGetWeather] = useState(true);
+  const [skipGetWeather, setSkipGetWeather] = useState(!geo);
   const { data, refetch } = useGetWeatherQuery(
     {
       lat: geo?.lat || 0,
@@ -17,7 +17,7 @@ function WeatherDescription() {
   );
 
   useEffect(() => {
-    setSkipGetWeather(false);
+    setSkipGetWeather(!geo);
   }, [geo]);
 
   return (
