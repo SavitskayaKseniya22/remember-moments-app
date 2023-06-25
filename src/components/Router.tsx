@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 
 import { useSelector } from "react-redux";
+
 import ErrorPage from "../pages/ErrorPage";
 import { MainPage } from "../pages/MainPage";
 import { AuthForm } from "./AuthForm";
@@ -17,6 +18,7 @@ import { Board } from "./Board";
 import { Settings } from "./Settings";
 import { RootState } from "../store/store";
 import { Profile } from "./Profile";
+import Main from "./Main";
 
 function PrivateRoute() {
   const { activeUser } = useSelector((state: RootState) => state.persist.user);
@@ -39,7 +41,10 @@ const router = createBrowserRouter(
       element={
         <>
           <Header />
-          <Outlet />
+          <Main>
+            <Outlet />
+          </Main>
+
           <Footer />
         </>
       }
