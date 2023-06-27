@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useGetWeatherQuery } from "../../store/weatherSlice";
 import { RootState } from "../../store/store";
+import { useGetWeatherQuery } from "../../store/weather/weatherApi";
 
 function WeatherDescription() {
   const { geo } = useSelector((state: RootState) => state.persist.weather);

@@ -1,5 +1,6 @@
 import { FieldValues } from "react-hook-form";
-import { GeoTypes } from "./interfaces";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
+import { AuthErrorTypes, GeoTypes } from "./interfaces";
 
 export function getTime() {
   const date = new Date();
@@ -28,11 +29,6 @@ export function formatTime(time: { [key: string]: number }) {
   return formattedTime;
 }
 
-export function checkLS(key: string) {
-  const storage = window.localStorage;
-  return storage.getItem(key);
-}
-
 export function formatDataToSend(data: FieldValues) {
   return {
     email: String(data.email),
@@ -43,10 +39,7 @@ export function formatDataToSend(data: FieldValues) {
 
 export function IsItDay() {
   const hours = new Date().getHours();
-  if (hours < 12) {
-    return true;
-  }
-  return false;
+  return hours < 12;
 }
 
 export function filterData(data: GeoTypes[]) {
@@ -66,4 +59,12 @@ export function filterData(data: GeoTypes[]) {
     }
   });
   return filteredData;
+}
+
+export function transformAuthError(response: FetchBaseQueryError) {
+  const { message } = (response.data as AuthErrorTypes).error;
+  return {
+    code: response.status,
+    message: message.toLowerCase().replaceAll("_", " "),
+  };
 }

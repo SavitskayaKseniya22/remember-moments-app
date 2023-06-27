@@ -13,9 +13,11 @@ import {
 
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
-import weatherReducer, { weatherApi } from "./weatherSlice";
 import settingsReducer from "./settingsSlice";
-import userReducer, { authApi } from "./authSlice";
+import userReducer from "./auth/authSlice";
+import weatherReducer from "./weather/weatherSlice";
+import { authApi } from "./auth/authApi";
+import { weatherApi } from "./weather/weatherApi";
 
 const persistConfig = {
   key: "remember-moments-app-root",

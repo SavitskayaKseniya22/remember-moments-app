@@ -18,5 +18,27 @@
     "short": "The value is too short",
     "email": "Entered value does not match email format",
     "noMatches": "No matches found"
+  },
+  "auth": {
+    "error": {},
+    "success": {
+      "emailChanged": "Email changed successfully. Please login again.",
+      "passwordChanged": "Password changed successfully. Please login again.",
+      "accountDeleted": "You successfully deleted your account",
+      "dataUploaded": "Account data uploaded successfully"
+    },
+    "warn": {},
+    "action": {
+      "changePassword": "change password",
+      "changeEmail": "change email",
+      "deleteProfile": "delete profile"
+    }
+  },
+  "weather": {
+    "error": {},
+    "success": {},
+    "warn": {
+      "noMatch": "No matching cities. Repeat the search for other data."
+    }
   }
 }

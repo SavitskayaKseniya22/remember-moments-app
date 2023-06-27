@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { Form } from "react-router-dom";
 import styled from "styled-components";
+import { toast } from "react-toastify";
 import { RootState } from "../../store/store";
 import { transparentStyle } from "../../styledComponents/SharedStyles";
 import { StyledBasicButton } from "../../styledComponents/StyledButton";
@@ -40,6 +41,7 @@ function WeatherSearch({
   } = useForm({
     mode: "onSubmit",
     reValidateMode: "onChange",
+    criteriaMode: "all",
   });
 
   const { geo } = useSelector((state: RootState) => state.persist.weather);
@@ -62,6 +64,28 @@ function WeatherSearch({
       setFocus("cityName");
     }
   }, [isEditing, setFocus]);
+
+  useEffect(() => {
+    toast.dismiss();
+    if (errors.cityName) {
+      toast.error(
+        <ErrorMessage
+          errors={errors}
+          name="cityName"
+          render={({ messages }) =>
+            messages &&
+            Object.entries(messages).map(([type, message]) => (
+              <p key={type}>{message}</p>
+            ))
+          }
+        />,
+        {
+          autoClose: false,
+          toastId: JSON.stringify(errors.cityName.types),
+        },
+      );
+    }
+  }, [errors, errors.cityName]);
 
   return (
     <Form method="get" onSubmit={onSubmit}>
@@ -103,7 +127,6 @@ function WeatherSearch({
           } ${geo?.country}`}
         </StyledTransparentButton>
       )}
-      <ErrorMessage errors={errors} name="cityName" />
     </Form>
   );
 }

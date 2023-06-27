@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { StyledRedButton } from "../styledComponents/StyledButton";
 import { RootState } from "../store/store";
-import { resetActiveUser } from "../store/authSlice";
+import { resetActiveUser } from "../store/auth/authSlice";
 import { ActiveUserTypes } from "../interfaces";
 
 export const StyledAccountHeader = styled("div")`

@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+
+import { useTranslation } from "react-i18next";
 import { RootState } from "../store/store";
-import {
-  useChangeEmailMutation,
-  useChangePasswordMutation,
-  useDeleteProfileMutation,
-  useGetUserDataMutation,
-} from "../store/authSlice";
+
 import { ActiveUserDataTypes } from "../interfaces";
+import {
+  useGetUserDataMutation,
+  useChangePasswordMutation,
+  useChangeEmailMutation,
+  useDeleteProfileMutation,
+} from "../store/auth/authApi";
 
 export function Profile() {
   const { activeUser } = useSelector((state: RootState) => state.persist.user);
-  const [getUserData, result] = useGetUserDataMutation();
+  const { t } = useTranslation();
+  const [getUserData] = useGetUserDataMutation();
   const [changePassword] = useChangePasswordMutation();
   const [changeEmail] = useChangeEmailMutation();
   const [deleteProfile] = useDeleteProfileMutation();
@@ -22,15 +26,13 @@ export function Profile() {
 
   useEffect(() => {
     if (activeUser) {
-      getUserData(activeUser.idToken);
+      getUserData(activeUser.idToken)
+        .unwrap()
+        .then((fulfilled) => {
+          setUserData(fulfilled);
+        });
     }
   }, []);
-
-  useEffect(() => {
-    if (result.status === "fulfilled") {
-      setUserData(result.data.users[0]);
-    }
-  }, [result]);
 
   return (
     <>
@@ -73,7 +75,7 @@ export function Profile() {
             });
           }}
         >
-          change password
+          {t("auth.action.changePassword")}
         </button>
         <button
           type="button"
@@ -85,15 +87,15 @@ export function Profile() {
             });
           }}
         >
-          change email
+          {t("auth.action.changeEmail")}
         </button>
         <button
           type="button"
           onClick={() => {
-            deleteProfile({ idToken: activeUser?.idToken as string });
+            deleteProfile(activeUser?.idToken as string);
           }}
         >
-          delete profile
+          {t("auth.action.deleteProfile")}
         </button>
         <button type="button" onClick={() => {}}>
           update name

@@ -5,6 +5,23 @@ export interface TimeTypes {
   [key: string]: number;
 }
 
+export interface AuthErrorTypes {
+  error: {
+    errors: [
+      {
+        domain: string;
+        reason: string;
+        message: string;
+      },
+    ];
+    code: number;
+    message: string;
+  };
+}
+export interface WeatherErrorTypes {
+  error: { cod: string; message: string };
+}
+
 export interface ActiveUserDataTypes {
   localId: string;
   email: string;
@@ -30,6 +47,11 @@ export interface ActiveUserDataTypes {
   createdAt: string;
   customAuth: boolean;
   initialEmail: string;
+}
+
+export interface ActiveUserListDataTypes {
+  kind: string;
+  users: ActiveUserDataTypes[];
 }
 
 export interface ActiveUserTypes {
@@ -100,4 +122,30 @@ export interface WeatherTypes {
   id: number;
   name: string;
   cod: number;
+}
+
+export interface SignInUpArgsTypes {
+  email: string;
+  password: string;
+  returnSecureToken: boolean;
+}
+
+export interface ChangePasswordArgsTypes {
+  idToken: string;
+  password: string;
+  returnSecureToken: boolean;
+}
+
+export interface ChangeEmailArgsTypes {
+  idToken: string;
+  email: string;
+  returnSecureToken: boolean;
+}
+
+export interface UpdateProfileArgsTypes {
+  idToken: string;
+  displayName: string;
+  photoUrl: string;
+  deleteAttribute: string[];
+  returnSecureToken: boolean;
 }

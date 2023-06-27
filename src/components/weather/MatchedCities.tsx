@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { GeoTypes } from "../../interfaces";
 import { useAppDispatch } from "../../store/store";
-import { useGetMatchedCitiesQuery, updateGeo } from "../../store/weatherSlice";
+import { useGetMatchedCitiesQuery } from "../../store/weather/weatherApi";
+import { updateGeo } from "../../store/weather/weatherSlice";
 
 function MatchedCities({
   cityTitle,
@@ -13,14 +14,9 @@ function MatchedCities({
   const [skipGetMatchedCities, setSkipGetMatchedCities] = useState(true);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const dispatch = useAppDispatch();
-  const { data, error } = useGetMatchedCitiesQuery(
-    {
-      cityName: cityTitle || "Moscow",
-    },
-    {
-      skip: skipGetMatchedCities,
-    },
-  );
+  const { data } = useGetMatchedCitiesQuery(cityTitle || "Moscow", {
+    skip: skipGetMatchedCities,
+  });
 
   useEffect(() => {
     if (isSubmitSuccessful) {
@@ -30,15 +26,10 @@ function MatchedCities({
   }, [isSubmitSuccessful]);
 
   useEffect(() => {
-    console.log(error);
-  }, [error]);
-
-  useEffect(() => {
     if (data && data.length === 1) {
       setIsOpen(false);
-      dispatch(updateGeo(data[0]));
     }
-  }, [data, dispatch]);
+  }, [data]);
 
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
