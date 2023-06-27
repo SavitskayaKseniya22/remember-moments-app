@@ -59,10 +59,10 @@ const router = createBrowserRouter(
         <Route element={<PrivateAuthRoute />}>
           <Route path="auth" element={<Outlet />}>
             <Route index element={<Navigate to="login" />} />
-            <Route path="login" element={<AuthForm type="login" />} />
+            <Route path="login" element={<AuthForm formType="login" />} />
             <Route
               path="registration"
-              element={<AuthForm type="registration" />}
+              element={<AuthForm formType="registration" />}
             />
           </Route>
         </Route>
