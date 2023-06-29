@@ -25,16 +25,11 @@ function MatchedCities({
     }
   }, [isSubmitSuccessful]);
 
-  useEffect(() => {
-    if (data && data.length === 1) {
-      setIsOpen(false);
-    }
-  }, [data]);
-
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
       {data &&
+        data.length > 1 &&
         isOpen &&
         (data as GeoTypes[]).map((elem) => (
           <button

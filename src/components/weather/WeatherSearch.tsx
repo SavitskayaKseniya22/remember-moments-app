@@ -66,9 +66,9 @@ function WeatherSearch({
   }, [isEditing, setFocus]);
 
   useEffect(() => {
-    toast.dismiss();
+    // toast.dismiss();???
     if (errors.cityName) {
-      toast.error(
+      toast.warn(
         <ErrorMessage
           errors={errors}
           name="cityName"

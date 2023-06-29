@@ -17,7 +17,7 @@ import { Header } from "./Header";
 import { Board } from "./Board";
 import { Settings } from "./Settings";
 import { RootState } from "../store/store";
-import { Profile } from "./Profile";
+import { Profile } from "./profile/Profile";
 import Main from "./Main";
 
 function PrivateRoute() {

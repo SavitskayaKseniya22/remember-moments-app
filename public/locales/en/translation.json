@@ -25,13 +25,16 @@
       "emailChanged": "Email changed successfully. Please login again.",
       "passwordChanged": "Password changed successfully. Please login again.",
       "accountDeleted": "You successfully deleted your account",
-      "dataUploaded": "Account data uploaded successfully"
+      "dataUploaded": "Account data uploaded successfully",
+      "dataUpdated": "Accout data changed succesfully"
     },
     "warn": {},
     "action": {
       "changePassword": "change password",
       "changeEmail": "change email",
-      "deleteProfile": "delete profile"
+      "deleteProfile": "delete profile",
+      "updateData": "update account data",
+      "refreshData": "refresh account data"
     }
   },
   "weather": {

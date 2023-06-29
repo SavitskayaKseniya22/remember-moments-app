@@ -195,7 +195,7 @@ export const authApi = createApi({
         deleteAttribute,
         returnSecureToken,
       }: UpdateProfileArgsTypes) => ({
-        url: `:delete?key=${firebaseConfig.apiKey}`,
+        url: `:update?key=${firebaseConfig.apiKey}`,
         method: "POST",
         body: {
           idToken,
@@ -205,6 +205,21 @@ export const authApi = createApi({
           returnSecureToken,
         },
       }),
+      transformErrorResponse: (response) => {
+        return transformAuthError(response);
+      },
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          toast.success(t("auth.success.dataUpdated"));
+        } catch (err) {
+          if (err && typeof err === "object" && "error" in err) {
+            const { message, code } = (err as AuthErrorTypes).error;
+            toast.error(`${code}: ${message}`);
+          }
+          dispatch(resetActiveUser());
+        }
+      },
     }),
   }),
 });

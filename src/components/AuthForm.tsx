@@ -61,17 +61,11 @@ export function AuthForm({ formType }: { formType: string }) {
   const passwordToastId = React.useRef<null | Id>(null);
 
   useEffect(() => {
-    if (errors && !errors.email && !errors.password) {
-      toast.dismiss();
-    }
-  }, [errors, errors.email, errors.password]);
-
-  useEffect(() => {
     if (emailToastId.current) {
       toast.dismiss(emailToastId.current as Id);
     }
     if (errors.email) {
-      emailToastId.current = toast.error(
+      emailToastId.current = toast.warn(
         <ErrorMessage
           errors={errors}
           name="email"
@@ -82,7 +76,7 @@ export function AuthForm({ formType }: { formType: string }) {
         },
       );
     }
-  }, [errors, errors.email]);
+  }, [errors.email]);
 
   useEffect(() => {
     if (passwordToastId.current) {
@@ -90,7 +84,7 @@ export function AuthForm({ formType }: { formType: string }) {
     }
 
     if (errors.password) {
-      passwordToastId.current = toast.error(
+      passwordToastId.current = toast.warn(
         <ErrorMessage
           errors={errors}
           name="password"
@@ -101,7 +95,7 @@ export function AuthForm({ formType }: { formType: string }) {
         },
       );
     }
-  }, [errors, errors.password]);
+  }, [errors.password]);
 
   const onSubmit: SubmitHandler<FieldValues> = (formData) => {
     const dataToSend = formatDataToSend(formData);
