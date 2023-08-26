@@ -1,27 +1,12 @@
-import {
-  LogOut,
-  LogIn,
-  UserCircle,
-  BookOpen,
-  HomeCircle,
-} from "@styled-icons/boxicons-regular";
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
-import { StyledRedButton } from "../styledComponents/StyledButton";
+import styled from "styled-components";
 import { RootState } from "../store/store";
 import { resetActiveUser } from "../store/auth/authSlice";
 import { ActiveUserTypes } from "../interfaces";
-
-export const StyledAccountHeader = styled("div")`
-  background: rgba(0, 0, 0, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 1rem;
-`;
+import Button from "./Button";
+import Emphasis from "./interface/Emphasis";
 
 function checkName(user: ActiveUserTypes | undefined) {
   if (user) {
@@ -31,11 +16,9 @@ function checkName(user: ActiveUserTypes | undefined) {
   return "Stranger";
 }
 
-export function AccountHeader() {
+export function Greetings() {
   const { activeUser } = useSelector((state: RootState) => state.persist.user);
   const [name, setName] = useState(checkName(activeUser));
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const userName = checkName(activeUser);
@@ -43,48 +26,68 @@ export function AccountHeader() {
   }, [activeUser]);
 
   return (
+    <div>
+      Welcome, <Emphasis>{name}</Emphasis>!
+    </div>
+  );
+}
+
+export const StyledAccountHeader = styled("div")`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+  background-color: white;
+  padding: 0 1rem;
+`;
+
+export function AccountHeader() {
+  const { activeUser } = useSelector((state: RootState) => state.persist.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  return (
     <StyledAccountHeader>
-      <span>Welcome, {name}!</span>
-      {name !== "Stranger" ? (
+      {activeUser ? (
         <>
-          <StyledRedButton
-            handleClick={() => {
-              dispatch(resetActiveUser());
-            }}
-          >
-            <LogOut title="LogOut" size="36" />
-          </StyledRedButton>
-          <StyledRedButton
-            handleClick={() => {
-              navigate("/profile");
-            }}
-          >
-            <UserCircle title="Profile" size="36" />
-          </StyledRedButton>
-          <StyledRedButton
+          <Button
+            view="outline"
             handleClick={() => {
               navigate("/board");
             }}
           >
-            <BookOpen title="Board" size="36" />
-          </StyledRedButton>
+            Board
+          </Button>
+          <Button
+            view="outline"
+            handleClick={() => {
+              navigate("/profile");
+            }}
+          >
+            Profile
+          </Button>
+          <Button
+            view="outline"
+            handleClick={() => {
+              dispatch(resetActiveUser());
+            }}
+          >
+            Log out
+          </Button>
         </>
       ) : (
-        <StyledRedButton
+        <Button
+          view="full"
           handleClick={() => {
             navigate("/auth/login");
           }}
         >
-          <LogIn title="Login" size="36" />
-        </StyledRedButton>
+          Log in
+        </Button>
       )}
-      <StyledRedButton
-        handleClick={() => {
-          navigate("/");
-        }}
-      >
-        <HomeCircle title="Home" size="36" />
-      </StyledRedButton>
     </StyledAccountHeader>
   );
 }
+
+export default AccountHeader;

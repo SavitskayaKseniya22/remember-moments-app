@@ -1,7 +1,97 @@
 import React from "react";
+import styled from "styled-components";
+import Emphasis from "../components/interface/Emphasis";
+import PopularPlacesList from "./mainPage/PopularPlacesList";
+import FirstScreen from "./mainPage/FirstScreen";
+import ShopItemList from "./shop/ShopItemList";
+import Button from "../components/Button";
+
+export const StyledTitle = styled("div")`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  gap: 1rem;
+
+  .title_middle {
+    margin: 0;
+    font-size: 2rem;
+    font-family: "Volkhov", serif;
+    color: #222222;
+  }
+
+  .title_small {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: #666666;
+  }
+`;
+
+export const StyledMainPageBlock = styled("div")`
+  background-color: #f5f9ff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+`;
 
 export function MainPage() {
-  return <span>Home</span>;
+  return (
+    <>
+      <FirstScreen />
+      <StyledTitle>
+        <h2 className="title_middle">
+          Choose <Emphasis>a location</Emphasis>
+        </h2>
+        <h3 className="title_small">
+          Choose a popular location or find a hidden gem
+        </h3>
+      </StyledTitle>
+      <StyledMainPageBlock>
+        <PopularPlacesList />
+        <Button view="full">Go to explore other places</Button>
+      </StyledMainPageBlock>
+      <StyledTitle>
+        <h2 className="title_middle">
+          Buy <Emphasis>a ticket</Emphasis>
+        </h2>
+        <h3 className="title_small">Book a ticket in the aggregator widget</h3>
+      </StyledTitle>
+      <StyledMainPageBlock />
+      <StyledTitle>
+        <h2 className="title_middle">
+          Plan <Emphasis>a route</Emphasis>
+        </h2>
+        <h3 className="title_small">
+          Create an itinerary for places of interest
+        </h3>
+      </StyledTitle>
+      <StyledMainPageBlock />
+      <StyledTitle>
+        <h2 className="title_middle">
+          Gather <Emphasis>everything you need</Emphasis>
+        </h2>
+        <h3 className="title_small">
+          Don&apos;t forget a roomy backpack or a nice passport cover
+        </h3>
+      </StyledTitle>
+      <StyledMainPageBlock>
+        <ShopItemList />
+        <Button view="full">Go to shopping</Button>
+      </StyledMainPageBlock>
+      <StyledTitle>
+        <h2 className="title_middle">
+          Make sure you haven&apos;t forgotten <Emphasis>anything</Emphasis>
+        </h2>
+        <h3 className="title_small">
+          Go through the checklist before you leave
+        </h3>
+      </StyledTitle>
+      <StyledMainPageBlock />
+    </>
+  );
 }
 
 export default MainPage;
