@@ -37,25 +37,29 @@ function PrivateProfileRoute() {
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route
-      element={
-        <>
-          <Header />
-          <Main>
-            <Outlet />
-          </Main>
-
-          <Footer />
-        </>
-      }
-    >
+    <Route path="/" errorElement={<ErrorPage />} id="root" element={<Outlet />}>
       <Route
-        path="/"
-        errorElement={<ErrorPage />}
-        id="root"
-        element={<Outlet />}
+        index
+        element={
+          <>
+            <Main>
+              <MainPage />
+            </Main>
+            <Footer />
+          </>
+        }
+      />
+      <Route
+        element={
+          <>
+            <Header />
+            <Main>
+              <Outlet />
+            </Main>
+            <Footer />
+          </>
+        }
       >
-        <Route index element={<MainPage />} />
         <Route element={<PrivateAuthRoute />}>
           <Route path="auth" element={<Outlet />}>
             <Route index element={<Navigate to="login" />} />
