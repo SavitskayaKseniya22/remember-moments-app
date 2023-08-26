@@ -6,10 +6,10 @@ import { Form, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ErrorMessage } from "@hookform/error-message";
 import { Id, toast } from "react-toastify";
-import { StyledRedOutlineButton } from "../styledComponents/StyledButton";
 import { flexboxLineStyle } from "../styledComponents/SharedStyles";
 import { formatDataToSend } from "../utils";
 import { useSignInMutation, useSignUpMutation } from "../store/auth/authApi";
+import Button from "./Button";
 
 export const StyledForm = styled(Form)`
   background-color: white;
@@ -19,6 +19,7 @@ export const StyledForm = styled(Form)`
   gap: 1rem;
   width: 15%;
   min-width: 300px;
+  margin: 0 auto;
 `;
 
 export const StyledInput = styled("input")`
@@ -146,24 +147,28 @@ export function AuthForm({ formType }: { formType: string }) {
         })}
       />
       <StyledButtonList>
-        <StyledRedOutlineButton type="submit">Enter</StyledRedOutlineButton>
+        <Button type="submit" view="outline">
+          Enter
+        </Button>
         {formType === "login" && (
-          <StyledRedOutlineButton
+          <Button
+            view="outline"
             handleClick={() => {
               navigate("/auth/registration");
             }}
           >
             Registration
-          </StyledRedOutlineButton>
+          </Button>
         )}
         {formType === "registration" && (
-          <StyledRedOutlineButton
+          <Button
+            view="outline"
             handleClick={() => {
               navigate("/auth/login");
             }}
           >
             Login
-          </StyledRedOutlineButton>
+          </Button>
         )}
       </StyledButtonList>
     </StyledForm>

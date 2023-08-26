@@ -9,15 +9,15 @@ import styled from "styled-components";
 import { toast } from "react-toastify";
 import { RootState } from "../../store/store";
 import { transparentStyle } from "../../styledComponents/SharedStyles";
-import { StyledBasicButton } from "../../styledComponents/StyledButton";
 import { StyledInput } from "../AuthForm";
+import Button from "../Button";
 
 export const StyledTransparentInput = styled(StyledInput)`
   ${transparentStyle}
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 `;
 
-export const StyledTransparentButton = styled(StyledBasicButton)`
+export const StyledTransparentButton = styled(Button)`
   ${transparentStyle}
   border-bottom: 1px solid rgba(0, 0, 0, 0);
 `;
@@ -117,6 +117,7 @@ function WeatherSearch({
         />
       ) : (
         <StyledTransparentButton
+          view="outline"
           type="button"
           handleClick={() => {
             setIsEditing(true);

@@ -1,10 +1,10 @@
 import React from "react";
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { useSelector } from "react-redux";
-import { StyledRedOutlineButton } from "../../../styledComponents/StyledButton";
 import { StyledForm } from "../../AuthForm";
 import { RootState } from "../../../store/store";
 import { useDeleteProfileMutation } from "../../../store/auth/authApi";
+import Button from "../../Button";
 
 function AccountDeleteForm() {
   const [deleteProfile] = useDeleteProfileMutation();
@@ -18,7 +18,9 @@ function AccountDeleteForm() {
   return (
     <StyledForm method="post" onSubmit={handleSubmit(onSubmit)}>
       <p>Are you sure you want to delete your account?</p>
-      <StyledRedOutlineButton type="submit">Yes</StyledRedOutlineButton>
+      <Button view="outline" type="submit">
+        Yes
+      </Button>
     </StyledForm>
   );
 }

@@ -3,14 +3,13 @@
 import React from "react";
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { useSelector } from "react-redux";
-import { StyledRedOutlineButton } from "../../../styledComponents/StyledButton";
 import { StyledForm, StyledPinkInput } from "../../AuthForm";
-
 import { RootState } from "../../../store/store";
 import {
   useUpdateProfileMutation,
   useGetUserDataMutation,
 } from "../../../store/auth/authApi";
+import Button from "../../Button";
 
 function AccountUpdateForm({ closeModal }: { closeModal: () => void }) {
   const { activeUser } = useSelector((state: RootState) => state.persist.user);
@@ -74,7 +73,9 @@ function AccountUpdateForm({ closeModal }: { closeModal: () => void }) {
           id="photoUrlCheckbox"
         />
       </label>
-      <StyledRedOutlineButton type="submit">Enter</StyledRedOutlineButton>
+      <Button view="outline" type="submit">
+        Enter
+      </Button>
     </StyledForm>
   );
 }

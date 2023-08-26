@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { XCircle } from "@styled-icons/boxicons-regular";
-import { StyledRedButton } from "../styledComponents/StyledButton";
+import Button from "./Button";
 
 export const StyledWidget = styled("div")`
   background: white;
@@ -17,9 +17,9 @@ export const StyledWidget = styled("div")`
 export function Widget() {
   return (
     <StyledWidget>
-      <StyledRedButton handleClick={() => {}}>
+      <Button view="full" handleClick={() => {}}>
         <XCircle title="Close" size="36" />
-      </StyledRedButton>
+      </Button>
     </StyledWidget>
   );
 }

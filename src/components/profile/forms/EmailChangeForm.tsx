@@ -5,10 +5,10 @@ import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { ErrorMessage } from "@hookform/error-message";
 import { Id, toast } from "react-toastify";
-import { StyledRedOutlineButton } from "../../../styledComponents/StyledButton";
 import { StyledForm, StyledPinkInput } from "../../AuthForm";
 import { RootState } from "../../../store/store";
 import { useChangeEmailMutation } from "../../../store/auth/authApi";
+import Button from "../../Button";
 
 function EmailChangeForm() {
   const [changeEmail] = useChangeEmailMutation();
@@ -67,7 +67,9 @@ function EmailChangeForm() {
           },
         })}
       />
-      <StyledRedOutlineButton type="submit">Enter</StyledRedOutlineButton>
+      <Button view="outline" type="submit">
+        Enter
+      </Button>
     </StyledForm>
   );
 }
