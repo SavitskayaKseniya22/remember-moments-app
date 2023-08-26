@@ -1,8 +1,8 @@
 /* eslint-disable react/button-has-type */
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-export const StyledBasicButton = styled("button")<{
+export const StyledLikeButton = css<{
   view: "full" | "outline" | "transparent";
 }>`
   padding: 0.5rem 3rem;
@@ -18,6 +18,12 @@ export const StyledBasicButton = styled("button")<{
   &:disabled {
     color: gray;
   }
+`;
+
+export const StyledBasicButton = styled("button")<{
+  view: "full" | "outline" | "transparent";
+}>`
+  ${StyledLikeButton}
 `;
 
 function Button({

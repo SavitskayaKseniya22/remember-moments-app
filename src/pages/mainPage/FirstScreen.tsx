@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 import bg from "../../assets/images/Image.png";
-import Button from "../../components/Button";
+
 import { Header } from "../../components/Header";
 import Emphasis from "../../components/interface/Emphasis";
+import { StyledNavLink } from "../../components/interface/Navigation";
 
 export const StyledFirstScreen = styled("div")`
   height: 100vh;
@@ -38,7 +38,6 @@ export const StyledFirstScreen = styled("div")`
 `;
 
 function FirstScreen() {
-  const navigate = useNavigate();
   return (
     <StyledFirstScreen>
       <Header />
@@ -50,14 +49,9 @@ function FirstScreen() {
           A Team of experienced tourism professionals will provide you with the
           best advice and tips for your desire place.
         </p>
-        <Button
-          view="full"
-          handleClick={() => {
-            navigate("/auth/login");
-          }}
-        >
+        <StyledNavLink to="/auth/login" view="full">
           Start an unforgettable trip
-        </Button>
+        </StyledNavLink>
       </div>
     </StyledFirstScreen>
   );

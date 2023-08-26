@@ -1,55 +1,28 @@
 import React from "react";
 import styled from "styled-components";
 import { Logo } from "./interface/Logo";
-import { AccountHeader, Greetings } from "./AccountHeader";
+import MainNavigation from "./interface/Navigation";
+import { Greetings } from "./interface/Greetings";
+import { LoginToggle } from "./interface/LoginToggle";
 
 export const StyledHeader = styled("header")`
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   width: 1280px;
   margin: 0 auto;
-
-  .header_main {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    align-items: center;
-    gap: 2rem;
-    padding: 0 1rem;
-    background-color: #fefcfb;
-  }
-
-  .nav {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-    a {
-      color: #666666;
-      text-decoration: none;
-    }
-  }
+  align-items: center;
+  gap: 2rem;
+  padding: 0 1rem;
+  background-color: #fefcfb;
 `;
 
 export function Header() {
   return (
     <StyledHeader>
-      <div className="header_main">
-        <Logo />
-        <ul className="nav">
-          <li>
-            <a href="/auth/login">Plan a tour</a>
-          </li>
-          <li>
-            <a href="/destinations">Destinations</a>
-          </li>
-          <li>
-            <a href="/shop">Shop</a>
-          </li>
-        </ul>
-        <Greetings />
-      </div>
-      <AccountHeader />
+      <Logo />
+      <MainNavigation />
+      <Greetings />
+      <LoginToggle />
     </StyledHeader>
   );
 }

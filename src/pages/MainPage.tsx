@@ -4,7 +4,7 @@ import Emphasis from "../components/interface/Emphasis";
 import PopularPlacesList from "./mainPage/PopularPlacesList";
 import FirstScreen from "./mainPage/FirstScreen";
 import ShopItemList from "./shop/ShopItemList";
-import Button from "../components/Button";
+import { StyledNavLink } from "../components/interface/Navigation";
 
 export const StyledTitle = styled("div")`
   display: flex;
@@ -51,7 +51,9 @@ export function MainPage() {
       </StyledTitle>
       <StyledMainPageBlock>
         <PopularPlacesList />
-        <Button view="full">Go to explore other places</Button>
+        <StyledNavLink view="full" to="/destinations">
+          Go to explore other places
+        </StyledNavLink>
       </StyledMainPageBlock>
       <StyledTitle>
         <h2 className="title_middle">
@@ -79,7 +81,9 @@ export function MainPage() {
       </StyledTitle>
       <StyledMainPageBlock>
         <ShopItemList />
-        <Button view="full">Go to shopping</Button>
+        <StyledNavLink view="full" to="/shop">
+          Go to shopping
+        </StyledNavLink>
       </StyledMainPageBlock>
       <StyledTitle>
         <h2 className="title_middle">
