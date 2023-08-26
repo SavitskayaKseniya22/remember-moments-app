@@ -9,8 +9,7 @@ import { updateGeo } from "./weatherSlice";
 export const weatherApi = createApi({
   reducerPath: "weatherApi",
   baseQuery: fetchBaseQuery({
-    baseUrl:
-      "https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/",
+    baseUrl: "https://api.openweathermap.org/",
   }),
 
   endpoints: (builder) => ({
