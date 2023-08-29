@@ -16,7 +16,9 @@ export const StyledLikeButton = css<{
   border: ${(props) =>
     props.view === "outline" ? "1px solid #fd6e09" : "none"};
   &:disabled {
+    pointer-events: none;
     color: gray;
+    border-color: gray;
   }
 `;
 

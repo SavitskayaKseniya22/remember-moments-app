@@ -46,7 +46,6 @@ export const StyledProfile = styled(StyledMainCentred)`
   .data__profile-image {
     border-radius: 50%;
     border: 2px solid rgb(245, 249, 255);
-    align-self: center;
   }
 
   .data-part__list {
@@ -83,13 +82,17 @@ export function Profile() {
   return (
     <StyledProfile>
       <div className="data__part_main data__part">
-        <img
-          className="data__profile-image"
-          src={data?.photoUrl || dummyImage}
-          alt="profile"
-          width={200}
-          height={200}
-        />
+        <div className="data-part__list">
+          <img
+            className="data__profile-image"
+            src={data?.photoUrl || dummyImage}
+            alt="profile"
+            width={200}
+            height={200}
+          />
+          <PhotoRemoveForm />
+        </div>
+
         <div>
           <h3>{data?.displayName || "Unknown"}</h3>
           <ul className="data-part__list">
@@ -152,7 +155,6 @@ export function Profile() {
         <EmailChangeForm />
         <PasswordChangeForm />
         <PhotoUpdateForm />
-        <PhotoRemoveForm />
       </div>
 
       <Modal

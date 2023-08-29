@@ -20,7 +20,6 @@ export const StyledForm = styled(Form)`
   flex-direction: column;
   gap: 1rem;
   max-width: 300px;
-  margin: 0 auto;
 `;
 
 export const StyledInput = styled("input")`

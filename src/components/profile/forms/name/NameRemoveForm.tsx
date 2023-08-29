@@ -37,7 +37,7 @@ function NameRemoveForm() {
 
   return (
     <StyledForm method="post" onSubmit={handleSubmit(onSubmit)}>
-      <Button view="outline" type="submit">
+      <Button view="outline" type="submit" disabled={!activeUser?.displayName}>
         Delete name
       </Button>
     </StyledForm>

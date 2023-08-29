@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBMywVuCVNmfy20JqB3uVMBBZNkLqWw-y8",
@@ -16,5 +17,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const analytics = getAnalytics(app);
+
+export const storage = getStorage(app);
 
 export default firebaseConfig;

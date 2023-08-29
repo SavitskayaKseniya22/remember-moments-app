@@ -39,7 +39,11 @@ function PhotoRemoveForm() {
 
   return (
     <StyledForm method="post" onSubmit={handleSubmit(onSubmit)}>
-      <Button view="outline" type="submit">
+      <Button
+        view="outline"
+        type="submit"
+        disabled={!activeUser?.profilePicture}
+      >
         Delete profile image
       </Button>
     </StyledForm>
