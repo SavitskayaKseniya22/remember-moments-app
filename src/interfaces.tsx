@@ -128,19 +128,16 @@ export interface WeatherTypes {
 export interface SignInUpArgsTypes {
   email: string;
   password: string;
-  returnSecureToken: boolean;
 }
 
 export interface ChangePasswordArgsTypes {
   idToken: string;
   password: string;
-  returnSecureToken: boolean;
 }
 
 export interface ChangeEmailArgsTypes {
   idToken: string;
   email: string;
-  returnSecureToken: boolean;
 }
 
 export interface UpdateProfileArgsTypes {

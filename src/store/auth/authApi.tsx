@@ -25,13 +25,13 @@ export const authApi = createApi({
   }),
   endpoints: (builder) => ({
     signUp: builder.mutation({
-      query: ({ email, password, returnSecureToken }: SignInUpArgsTypes) => ({
+      query: ({ email, password }: SignInUpArgsTypes) => ({
         url: `:signUp?key=${firebaseConfig.apiKey}`,
         method: "POST",
         body: {
           email,
           password,
-          returnSecureToken,
+          returnSecureToken: true,
         },
       }),
       transformErrorResponse: (response) => {
@@ -50,13 +50,13 @@ export const authApi = createApi({
       },
     }),
     signIn: builder.mutation({
-      query: ({ email, password, returnSecureToken }: SignInUpArgsTypes) => ({
+      query: ({ email, password }: SignInUpArgsTypes) => ({
         url: `:signInWithPassword?key=${firebaseConfig.apiKey}`,
         method: "POST",
         body: {
           email,
           password,
-          returnSecureToken,
+          returnSecureToken: true,
         },
       }),
       transformErrorResponse: (response) => {
@@ -104,17 +104,13 @@ export const authApi = createApi({
       },
     }),
     changePassword: builder.mutation({
-      query: ({
-        idToken,
-        password,
-        returnSecureToken,
-      }: ChangePasswordArgsTypes) => ({
+      query: ({ idToken, password }: ChangePasswordArgsTypes) => ({
         url: `:update?key=${firebaseConfig.apiKey}`,
         method: "POST",
         body: {
           idToken,
           password,
-          returnSecureToken,
+          returnSecureToken: true,
         },
       }),
       transformErrorResponse: (response) => {
@@ -140,13 +136,13 @@ export const authApi = createApi({
       },
     }),
     changeEmail: builder.mutation({
-      query: ({ idToken, email, returnSecureToken }: ChangeEmailArgsTypes) => ({
+      query: ({ idToken, email }: ChangeEmailArgsTypes) => ({
         url: `:update?key=${firebaseConfig.apiKey}`,
         method: "POST",
         body: {
           idToken,
           email,
-          returnSecureToken,
+          returnSecureToken: true,
         },
       }),
       transformErrorResponse: (response) => {

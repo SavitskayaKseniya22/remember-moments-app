@@ -35,13 +35,9 @@ function PhotoUpdateForm() {
 
   const onSubmit: SubmitHandler<FieldValues> = (formData) => {
     const file = formData.file[0];
-
-    if (file) {
-      const storageRef = ref(
-        storage,
-        `/avatars/${activeUser?.email}/${file.name}`,
-      );
-
+    if (file && activeUser) {
+      const { email, idToken, displayName } = activeUser;
+      const storageRef = ref(storage, `/avatars/${email}/${file.name}`);
       const uploadTask = uploadBytesResumable(storageRef, file);
       uploadTask
         .then(() => {
@@ -49,16 +45,14 @@ function PhotoUpdateForm() {
         })
         .then((url) => {
           return updatePhoto({
-            idToken: activeUser?.idToken as string,
-            displayName: activeUser?.displayName as string,
+            idToken,
+            displayName,
             photoUrl: url as string,
           }).unwrap();
         })
         .then(() => {
-          if (activeUser) {
-            getUserData(activeUser.idToken);
-            reset();
-          }
+          getUserData(idToken);
+          reset();
         })
         .catch((rejected) => {
           console.error(rejected);

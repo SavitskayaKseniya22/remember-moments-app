@@ -20,19 +20,20 @@ function NameRemoveForm() {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = () => {
-    removeName({
-      idToken: activeUser?.idToken as string,
-      photoUrl: activeUser?.profilePicture as string,
-    })
-      .unwrap()
-      .then(() => {
-        if (activeUser) {
-          getUserData(activeUser.idToken);
-        }
+    if (activeUser) {
+      const { idToken, profilePicture: photoUrl } = activeUser;
+      removeName({
+        idToken,
+        photoUrl,
       })
-      .catch((rejected) => {
-        console.error(rejected);
-      });
+        .unwrap()
+        .then(() => {
+          getUserData(idToken);
+        })
+        .catch((rejected) => {
+          console.error(rejected);
+        });
+    }
   };
 
   return (

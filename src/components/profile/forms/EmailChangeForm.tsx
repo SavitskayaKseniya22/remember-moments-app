@@ -25,11 +25,12 @@ function EmailChangeForm() {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (formData) => {
-    changeEmail({
-      idToken: activeUser?.idToken as string,
-      email: formData.email,
-      returnSecureToken: true,
-    });
+    if (activeUser) {
+      changeEmail({
+        idToken: activeUser.idToken,
+        email: formData.email,
+      });
+    }
   };
 
   const emailToastId = React.useRef<null | Id>(null);

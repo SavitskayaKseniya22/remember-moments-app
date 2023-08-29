@@ -24,11 +24,12 @@ function PasswordChangeForm() {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (formData) => {
-    changePassword({
-      idToken: activeUser?.idToken as string,
-      password: formData.password,
-      returnSecureToken: true,
-    });
+    if (activeUser) {
+      changePassword({
+        idToken: activeUser.idToken,
+        password: formData.password,
+      });
+    }
   };
 
   const passwordToastId = React.useRef<null | Id>(null);

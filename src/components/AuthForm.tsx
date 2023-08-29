@@ -10,7 +10,6 @@ import {
   StyledMainCentred,
   flexboxLineStyle,
 } from "../styledComponents/SharedStyles";
-import { formatDataToSend } from "../utils";
 import { useSignInMutation, useSignUpMutation } from "../store/auth/authApi";
 import Button from "./Button";
 
@@ -99,14 +98,14 @@ export function AuthForm({ formType }: { formType: string }) {
   }, [errors.password]);
 
   const onSubmit: SubmitHandler<FieldValues> = (formData) => {
-    const dataToSend = formatDataToSend(formData);
+    const { email, password } = formData;
     if (formType === "login") {
-      signIn(dataToSend);
+      signIn({ email, password });
     } else if (formType === "registration") {
-      signUp(dataToSend)
+      signUp({ email, password })
         .unwrap()
         .then(() => {
-          signIn(dataToSend);
+          signIn({ email, password });
         })
         .catch((rejected) => {
           console.error(rejected);

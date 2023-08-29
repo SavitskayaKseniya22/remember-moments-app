@@ -22,21 +22,22 @@ function NameUpdateForm() {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (formData) => {
-    updateName({
-      idToken: activeUser?.idToken as string,
-      displayName: formData.displayName as string,
-      photoUrl: activeUser?.profilePicture as string,
-    })
-      .unwrap()
-      .then(() => {
-        if (activeUser) {
-          getUserData(activeUser.idToken);
-          reset();
-        }
+    if (activeUser) {
+      const { idToken, profilePicture: photoUrl } = activeUser;
+      updateName({
+        idToken,
+        displayName: formData.displayName,
+        photoUrl,
       })
-      .catch((rejected) => {
-        console.error(rejected);
-      });
+        .unwrap()
+        .then(() => {
+          getUserData(idToken);
+          reset();
+        })
+        .catch((rejected) => {
+          console.error(rejected);
+        });
+    }
   };
 
   return (

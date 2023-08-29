@@ -12,7 +12,9 @@ function AccountDeleteForm() {
   const { handleSubmit } = useForm();
 
   const onSubmit: SubmitHandler<FieldValues> = () => {
-    deleteProfile(activeUser?.idToken as string);
+    if (activeUser) {
+      deleteProfile(activeUser.idToken);
+    }
   };
 
   return (

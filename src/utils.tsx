@@ -1,4 +1,3 @@
-import { FieldValues } from "react-hook-form";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
 import { AuthErrorTypes, GeoTypes } from "./interfaces";
 
@@ -27,14 +26,6 @@ export function formatTime(time: { [key: string]: number }) {
   });
 
   return formattedTime;
-}
-
-export function formatDataToSend(data: FieldValues) {
-  return {
-    email: String(data.email),
-    password: String(data.password),
-    returnSecureToken: true,
-  };
 }
 
 export function IsItDay() {

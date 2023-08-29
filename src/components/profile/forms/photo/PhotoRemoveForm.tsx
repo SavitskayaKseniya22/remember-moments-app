@@ -3,6 +3,7 @@
 import React from "react";
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { useSelector } from "react-redux";
+import { deleteObject, ref } from "firebase/storage";
 import { StyledForm } from "../../../AuthForm";
 import { RootState } from "../../../../store/store";
 import {
@@ -10,6 +11,7 @@ import {
   useRemovePhotoMutation,
 } from "../../../../store/auth/authApi";
 import Button from "../../../Button";
+import { storage } from "../../../../services/firebase";
 
 function PhotoRemoveForm() {
   const { activeUser } = useSelector((state: RootState) => state.persist.user);
@@ -22,19 +24,23 @@ function PhotoRemoveForm() {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = () => {
-    removePhoto({
-      idToken: activeUser?.idToken as string,
-      displayName: activeUser?.displayName as string,
-    })
-      .unwrap()
-      .then(() => {
-        if (activeUser) {
-          getUserData(activeUser.idToken);
-        }
-      })
-      .catch((rejected) => {
-        console.error(rejected);
-      });
+    const desertRef = ref(storage, activeUser?.profilePicture);
+    if (activeUser) {
+      const { idToken, displayName } = activeUser;
+      deleteObject(desertRef)
+        .then(() => {
+          return removePhoto({
+            idToken,
+            displayName,
+          }).unwrap();
+        })
+        .then(() => {
+          getUserData(idToken);
+        })
+        .catch((rejected) => {
+          console.error(rejected);
+        });
+    }
   };
 
   return (
