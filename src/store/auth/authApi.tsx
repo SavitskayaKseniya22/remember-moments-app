@@ -11,7 +11,12 @@ import {
   ActiveUserListDataTypes,
 } from "../../interfaces";
 import { transformAuthError } from "../../utils";
-import { resetActiveUser, updateActiveUser } from "./authSlice";
+import {
+  resetActiveUser,
+  updateActiveUser,
+  updateNameForActiveUser,
+  updatePhotoForActiveUser,
+} from "./authSlice";
 
 export const authApi = createApi({
   reducerPath: "authApi",
@@ -87,6 +92,7 @@ export const authApi = createApi({
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
+
           toast.success(t("auth.success.dataUploaded"));
         } catch (err) {
           if (err && typeof err === "object" && "error" in err) {
@@ -187,22 +193,45 @@ export const authApi = createApi({
         }
       },
     }),
-    updateProfile: builder.mutation({
-      query: ({
-        idToken,
-        displayName,
-        photoUrl,
-        deleteAttribute,
-        returnSecureToken,
-      }: UpdateProfileArgsTypes) => ({
+    updatePhoto: builder.mutation({
+      query: ({ idToken, displayName, photoUrl }: UpdateProfileArgsTypes) => ({
         url: `:update?key=${firebaseConfig.apiKey}`,
         method: "POST",
         body: {
           idToken,
           displayName,
           photoUrl,
-          deleteAttribute,
-          returnSecureToken,
+          deleteAttribute: [],
+          returnSecureToken: true,
+        },
+      }),
+      transformErrorResponse: (response) => {
+        return transformAuthError(response);
+      },
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          toast.success(t("auth.success.dataUpdated"));
+          dispatch(updatePhotoForActiveUser(data.photoUrl));
+        } catch (err) {
+          if (err && typeof err === "object" && "error" in err) {
+            const { message, code } = (err as AuthErrorTypes).error;
+            toast.error(`${code}: ${message}`);
+          }
+          dispatch(resetActiveUser());
+        }
+      },
+    }),
+    removePhoto: builder.mutation({
+      query: ({ idToken, displayName }: UpdateProfileArgsTypes) => ({
+        url: `:update?key=${firebaseConfig.apiKey}`,
+        method: "POST",
+        body: {
+          idToken,
+          displayName,
+          photoUrl: "",
+          deleteAttribute: ["PHOTO_URL"],
+          returnSecureToken: true,
         },
       }),
       transformErrorResponse: (response) => {
@@ -211,6 +240,65 @@ export const authApi = createApi({
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
+          toast.success(t("auth.success.dataUpdated"));
+          dispatch(updatePhotoForActiveUser(""));
+        } catch (err) {
+          if (err && typeof err === "object" && "error" in err) {
+            const { message, code } = (err as AuthErrorTypes).error;
+            toast.error(`${code}: ${message}`);
+          }
+          dispatch(resetActiveUser());
+        }
+      },
+    }),
+    updateName: builder.mutation({
+      query: ({ idToken, displayName, photoUrl }: UpdateProfileArgsTypes) => ({
+        url: `:update?key=${firebaseConfig.apiKey}`,
+        method: "POST",
+        body: {
+          idToken,
+          displayName,
+          photoUrl,
+          deleteAttribute: [],
+          returnSecureToken: true,
+        },
+      }),
+      transformErrorResponse: (response) => {
+        return transformAuthError(response);
+      },
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(updateNameForActiveUser(data.displayName));
+          toast.success(t("auth.success.dataUpdated"));
+        } catch (err) {
+          if (err && typeof err === "object" && "error" in err) {
+            const { message, code } = (err as AuthErrorTypes).error;
+            toast.error(`${code}: ${message}`);
+          }
+          dispatch(resetActiveUser());
+        }
+      },
+    }),
+    removeName: builder.mutation({
+      query: ({ idToken, photoUrl }: UpdateProfileArgsTypes) => ({
+        url: `:update?key=${firebaseConfig.apiKey}`,
+        method: "POST",
+        body: {
+          idToken,
+          displayName: "",
+          photoUrl,
+          deleteAttribute: ["DISPLAY_NAME"],
+          returnSecureToken: true,
+        },
+      }),
+      transformErrorResponse: (response) => {
+        return transformAuthError(response);
+      },
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          dispatch(updateNameForActiveUser(""));
           toast.success(t("auth.success.dataUpdated"));
         } catch (err) {
           if (err && typeof err === "object" && "error" in err) {
@@ -231,5 +319,8 @@ export const {
   useChangePasswordMutation,
   useChangeEmailMutation,
   useDeleteProfileMutation,
-  useUpdateProfileMutation,
+  useUpdateNameMutation,
+  useRemoveNameMutation,
+  useRemovePhotoMutation,
+  useUpdatePhotoMutation,
 } = authApi;

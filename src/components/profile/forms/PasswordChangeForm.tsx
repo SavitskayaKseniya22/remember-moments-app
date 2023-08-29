@@ -31,16 +31,16 @@ function PasswordChangeForm() {
     });
   };
 
-  const passwordToChangeToastId = React.useRef<null | Id>(null);
+  const passwordToastId = React.useRef<null | Id>(null);
   useEffect(() => {
-    if (passwordToChangeToastId.current) {
-      toast.dismiss(passwordToChangeToastId.current as Id);
+    if (passwordToastId.current) {
+      toast.dismiss(passwordToastId.current as Id);
     }
-    if (errors.passwordToChange) {
-      passwordToChangeToastId.current = toast.warn(
+    if (errors.password) {
+      passwordToastId.current = toast.warn(
         <ErrorMessage
           errors={errors}
-          name="passwordToChange"
+          name="password"
           render={({ message }) => <p>{message}</p>}
         />,
         {
@@ -48,7 +48,7 @@ function PasswordChangeForm() {
         },
       );
     }
-  }, [errors, errors.passwordToChange]);
+  }, [errors, errors.password]);
 
   return (
     <StyledForm method="post" onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -56,7 +56,7 @@ function PasswordChangeForm() {
         type="password"
         placeholder="password"
         defaultValue=""
-        {...register("passwordToChange", {
+        {...register("password", {
           required: {
             value: true,
             message: `Password: ${t("formValidation.required")}`,
@@ -68,7 +68,7 @@ function PasswordChangeForm() {
         })}
       />
       <Button view="outline" type="submit">
-        Enter
+        Update password
       </Button>
     </StyledForm>
   );

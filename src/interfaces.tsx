@@ -63,6 +63,7 @@ export interface ActiveUserTypes {
   registered: boolean;
   refreshToken: string;
   expiresIn: string;
+  profilePicture: string;
 }
 
 export interface GeoTypes {
@@ -144,8 +145,6 @@ export interface ChangeEmailArgsTypes {
 
 export interface UpdateProfileArgsTypes {
   idToken: string;
-  displayName: string;
-  photoUrl: string;
-  deleteAttribute: string[];
-  returnSecureToken: boolean;
+  displayName?: string;
+  photoUrl?: string;
 }

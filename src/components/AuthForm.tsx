@@ -6,19 +6,20 @@ import { Form, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ErrorMessage } from "@hookform/error-message";
 import { Id, toast } from "react-toastify";
-import { flexboxLineStyle } from "../styledComponents/SharedStyles";
+import {
+  StyledMainCentred,
+  flexboxLineStyle,
+} from "../styledComponents/SharedStyles";
 import { formatDataToSend } from "../utils";
 import { useSignInMutation, useSignUpMutation } from "../store/auth/authApi";
 import Button from "./Button";
 
 export const StyledForm = styled(Form)`
   background-color: white;
-  padding: 1rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  width: 15%;
-  min-width: 300px;
+  max-width: 300px;
   margin: 0 auto;
 `;
 
@@ -115,63 +116,65 @@ export function AuthForm({ formType }: { formType: string }) {
   };
 
   return (
-    <StyledForm method="post" onSubmit={handleSubmit(onSubmit)} noValidate>
-      <StyledPinkInput
-        type="email"
-        placeholder="email"
-        defaultValue=""
-        {...register("email", {
-          required: {
-            value: true,
-            message: `Email: ${t("formValidation.required")}`,
-          },
-          pattern: {
-            value: /\S+@\S+\.\S+/,
-            message: `Email: ${t("formValidation.email")}`,
-          },
-        })}
-      />
-      <StyledPinkInput
-        type="password"
-        placeholder="password"
-        defaultValue=""
-        {...register("password", {
-          required: {
-            value: true,
-            message: `Password: ${t("formValidation.required")}`,
-          },
-          minLength: {
-            value: 5,
-            message: `Password: ${t("formValidation.short")}`,
-          },
-        })}
-      />
-      <StyledButtonList>
-        <Button type="submit" view="outline">
-          Enter
-        </Button>
-        {formType === "login" && (
-          <Button
-            view="outline"
-            handleClick={() => {
-              navigate("/auth/registration");
-            }}
-          >
-            Registration
+    <StyledMainCentred>
+      <StyledForm method="post" onSubmit={handleSubmit(onSubmit)} noValidate>
+        <StyledPinkInput
+          type="email"
+          placeholder="email"
+          defaultValue=""
+          {...register("email", {
+            required: {
+              value: true,
+              message: `Email: ${t("formValidation.required")}`,
+            },
+            pattern: {
+              value: /\S+@\S+\.\S+/,
+              message: `Email: ${t("formValidation.email")}`,
+            },
+          })}
+        />
+        <StyledPinkInput
+          type="password"
+          placeholder="password"
+          defaultValue=""
+          {...register("password", {
+            required: {
+              value: true,
+              message: `Password: ${t("formValidation.required")}`,
+            },
+            minLength: {
+              value: 5,
+              message: `Password: ${t("formValidation.short")}`,
+            },
+          })}
+        />
+        <StyledButtonList>
+          <Button type="submit" view="full">
+            Enter
           </Button>
-        )}
-        {formType === "registration" && (
-          <Button
-            view="outline"
-            handleClick={() => {
-              navigate("/auth/login");
-            }}
-          >
-            Login
-          </Button>
-        )}
-      </StyledButtonList>
-    </StyledForm>
+          {formType === "login" && (
+            <Button
+              view="outline"
+              handleClick={() => {
+                navigate("/auth/registration");
+              }}
+            >
+              Registration
+            </Button>
+          )}
+          {formType === "registration" && (
+            <Button
+              view="outline"
+              handleClick={() => {
+                navigate("/auth/login");
+              }}
+            >
+              Login
+            </Button>
+          )}
+        </StyledButtonList>
+      </StyledForm>
+    </StyledMainCentred>
   );
 }
 

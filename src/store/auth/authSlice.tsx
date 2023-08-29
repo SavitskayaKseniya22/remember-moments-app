@@ -17,12 +17,27 @@ export const authSlice = createSlice({
     updateActiveUser: (state, action: PayloadAction<ActiveUserTypes>) => {
       state.activeUser = action.payload;
     },
+    updateNameForActiveUser: (state, action: PayloadAction<string>) => {
+      if (state.activeUser) {
+        state.activeUser.displayName = action.payload;
+      }
+    },
+    updatePhotoForActiveUser: (state, action: PayloadAction<string>) => {
+      if (state.activeUser) {
+        state.activeUser.profilePicture = action.payload;
+      }
+    },
     resetActiveUser: (state) => {
       state.activeUser = initialState.activeUser;
     },
   },
 });
 
-export const { updateActiveUser, resetActiveUser } = authSlice.actions;
+export const {
+  updateActiveUser,
+  updatePhotoForActiveUser,
+  resetActiveUser,
+  updateNameForActiveUser,
+} = authSlice.actions;
 
 export default authSlice.reducer;

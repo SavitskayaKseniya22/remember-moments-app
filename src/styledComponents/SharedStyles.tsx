@@ -19,3 +19,18 @@ export const StyledListOfItems = styled("ul")`
   align-items: center;
   justify-content: center;
 `;
+
+export const StyledMain = styled("main")`
+  flex-grow: 2;
+  position: relative;
+  min-width: 1024px;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+`;
+
+export const StyledMainCentred = styled(StyledMain)`
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+`;

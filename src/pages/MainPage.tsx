@@ -5,6 +5,12 @@ import PopularPlacesList from "./mainPage/PopularPlacesList";
 import FirstScreen from "./mainPage/FirstScreen";
 import ShopItemList from "./shop/ShopItemList";
 import { StyledNavLink } from "../components/interface/Navigation";
+import { StyledMain } from "../styledComponents/SharedStyles";
+
+const StyledMainFromMainPage = styled(StyledMain)`
+  flex-direction: column;
+  gap: 1rem;
+`;
 
 export const StyledTitle = styled("div")`
   display: flex;
@@ -39,7 +45,7 @@ export const StyledMainPageBlock = styled("div")`
 
 export function MainPage() {
   return (
-    <>
+    <StyledMainFromMainPage>
       <FirstScreen />
       <StyledTitle>
         <h2 className="title_middle">
@@ -94,7 +100,7 @@ export function MainPage() {
         </h3>
       </StyledTitle>
       <StyledMainPageBlock />
-    </>
+    </StyledMainFromMainPage>
   );
 }
 

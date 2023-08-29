@@ -13,6 +13,7 @@ import Button from "../../Button";
 function EmailChangeForm() {
   const [changeEmail] = useChangeEmailMutation();
   const { activeUser } = useSelector((state: RootState) => state.persist.user);
+
   const {
     register,
     handleSubmit,
@@ -31,16 +32,16 @@ function EmailChangeForm() {
     });
   };
 
-  const emailToChangeToastId = React.useRef<null | Id>(null);
+  const emailToastId = React.useRef<null | Id>(null);
   useEffect(() => {
-    if (emailToChangeToastId.current) {
-      toast.dismiss(emailToChangeToastId.current as Id);
+    if (emailToastId.current) {
+      toast.dismiss(emailToastId.current as Id);
     }
-    if (errors.emailToChange) {
-      emailToChangeToastId.current = toast.warn(
+    if (errors.email) {
+      emailToastId.current = toast.warn(
         <ErrorMessage
           errors={errors}
-          name="emailToChange"
+          name="email"
           render={({ message }) => <p>{message}</p>}
         />,
         {
@@ -48,15 +49,15 @@ function EmailChangeForm() {
         },
       );
     }
-  }, [errors, errors.emailToChange]);
+  }, [errors, errors.email]);
 
   return (
     <StyledForm method="post" onSubmit={handleSubmit(onSubmit)} noValidate>
       <StyledPinkInput
         type="email"
-        placeholder="email"
+        placeholder={activeUser?.email || "Email"}
         defaultValue=""
-        {...register("emailToChange", {
+        {...register("email", {
           required: {
             value: true,
             message: `Email: ${t("formValidation.required")}`,
@@ -68,7 +69,7 @@ function EmailChangeForm() {
         })}
       />
       <Button view="outline" type="submit">
-        Enter
+        Update email
       </Button>
     </StyledForm>
   );

@@ -27,6 +27,7 @@ export const GlobalStyle = createGlobalStyle`
     max-width: 100vw;
     display: flex;
     flex-direction: column;
+    justify-content:space-between;
   }
 `;
 

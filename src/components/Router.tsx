@@ -18,7 +18,6 @@ import { Board } from "./Board";
 import { Settings } from "./Settings";
 import { RootState } from "../store/store";
 import { Profile } from "./profile/Profile";
-import Main from "./Main";
 
 function PrivateRoute() {
   const { activeUser } = useSelector((state: RootState) => state.persist.user);
@@ -42,9 +41,7 @@ const router = createBrowserRouter(
         index
         element={
           <>
-            <Main>
-              <MainPage />
-            </Main>
+            <MainPage />
             <Footer />
           </>
         }
@@ -53,9 +50,7 @@ const router = createBrowserRouter(
         element={
           <>
             <Header />
-            <Main>
-              <Outlet />
-            </Main>
+            <Outlet />
             <Footer />
           </>
         }
