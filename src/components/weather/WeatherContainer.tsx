@@ -1,21 +1,20 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from "react";
 import styled from "styled-components";
-
 import { useSelector } from "react-redux";
-
-import { flexboxLineStyle } from "../../styledComponents/SharedStyles";
 import { RootState } from "../../store/store";
 import MatchedCities from "./MatchedCities";
 import WeatherDescription from "./WeatherDescription";
 import WeatherSearch from "./WeatherSearch";
 
 export const StyledWeather = styled("div")`
-  ${flexboxLineStyle}
+  display: flex;
+  align-items: center;
   gap: 1rem;
 
   div {
-    ${flexboxLineStyle}
+    display: flex;
+    align-items: center;
     gap: 0.5rem;
   }
 `;

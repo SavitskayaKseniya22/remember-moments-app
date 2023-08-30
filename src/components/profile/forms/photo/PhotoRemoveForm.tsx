@@ -4,13 +4,13 @@ import React from "react";
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { deleteObject, ref } from "firebase/storage";
-import { StyledForm } from "../../../AuthForm";
+import { StyledForm } from "../AuthForm";
 import { RootState } from "../../../../store/store";
 import {
   useGetUserDataMutation,
   useRemovePhotoMutation,
 } from "../../../../store/auth/authApi";
-import Button from "../../../Button";
+import { StyledBasicButton } from "../../../../styledComponents/SharedStyles";
 import { storage } from "../../../../services/firebase";
 
 function PhotoRemoveForm() {
@@ -45,13 +45,13 @@ function PhotoRemoveForm() {
 
   return (
     <StyledForm method="post" onSubmit={handleSubmit(onSubmit)}>
-      <Button
-        view="outline"
+      <StyledBasicButton
+        $view="outline"
         type="submit"
         disabled={!activeUser?.profilePicture}
       >
         Delete profile image
-      </Button>
+      </StyledBasicButton>
     </StyledForm>
   );
 }

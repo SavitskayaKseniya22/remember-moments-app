@@ -2,23 +2,28 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { Form, useNavigate } from "react-router-dom";
+import { Form } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ErrorMessage } from "@hookform/error-message";
 import { Id, toast } from "react-toastify";
+
 import {
   StyledMainCentred,
-  flexboxLineStyle,
-} from "../styledComponents/SharedStyles";
-import { useSignInMutation, useSignUpMutation } from "../store/auth/authApi";
-import Button from "./Button";
+  styledBlock,
+  StyledBasicButton,
+} from "../../../styledComponents/SharedStyles";
+import {
+  useSignInMutation,
+  useSignUpMutation,
+} from "../../../store/auth/authApi";
+import { StyledNavLink } from "../../interface/Navigation";
 
 export const StyledForm = styled(Form)`
-  background-color: white;
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  max-width: 300px;
+  ${styledBlock}
+  padding:0.5rem;
 `;
 
 export const StyledInput = styled("input")`
@@ -34,15 +39,15 @@ export const StyledPinkInput = styled(StyledInput)`
 `;
 
 export const StyledButtonList = styled("div")`
-  ${flexboxLineStyle}
+  display: flex;
+  align-items: center;
   gap: 1rem;
-  * {
+  & > * {
     width: 50%;
   }
 `;
 
 export function AuthForm({ formType }: { formType: string }) {
-  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -147,28 +152,18 @@ export function AuthForm({ formType }: { formType: string }) {
           })}
         />
         <StyledButtonList>
-          <Button type="submit" view="full">
+          <StyledBasicButton type="submit" $view="full">
             Enter
-          </Button>
+          </StyledBasicButton>
           {formType === "login" && (
-            <Button
-              view="outline"
-              handleClick={() => {
-                navigate("/auth/registration");
-              }}
-            >
+            <StyledNavLink $view="outline" to="/auth/registration">
               Registration
-            </Button>
+            </StyledNavLink>
           )}
           {formType === "registration" && (
-            <Button
-              view="outline"
-              handleClick={() => {
-                navigate("/auth/login");
-              }}
-            >
+            <StyledNavLink $view="outline" to="/auth/login">
               Login
-            </Button>
+            </StyledNavLink>
           )}
         </StyledButtonList>
       </StyledForm>

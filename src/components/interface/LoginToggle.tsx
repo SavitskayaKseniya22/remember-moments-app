@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { resetActiveUser } from "../../store/auth/authSlice";
 import { RootState } from "../../store/store";
-import Button from "../Button";
+import { StyledBasicButton } from "../../styledComponents/SharedStyles";
 
 export function LoginToggle() {
   const { activeUser } = useSelector((state: RootState) => state.persist.user);
@@ -11,23 +11,23 @@ export function LoginToggle() {
   const navigate = useNavigate();
 
   return activeUser ? (
-    <Button
-      view="outline"
-      handleClick={() => {
+    <StyledBasicButton
+      $view="outline"
+      onClick={() => {
         dispatch(resetActiveUser());
       }}
     >
       Log out
-    </Button>
+    </StyledBasicButton>
   ) : (
-    <Button
-      view="full"
-      handleClick={() => {
+    <StyledBasicButton
+      $view="full"
+      onClick={() => {
         navigate("/auth/login");
       }}
     >
       Log in
-    </Button>
+    </StyledBasicButton>
   );
 }
 

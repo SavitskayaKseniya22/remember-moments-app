@@ -30,11 +30,11 @@
     },
     "warn": {},
     "action": {
-      "changePassword": "change password",
-      "changeEmail": "change email",
-      "deleteProfile": "delete profile",
-      "updateData": "update account data",
-      "refreshData": "refresh account data"
+      "changePassword": "Change password",
+      "changeEmail": "Change email",
+      "deleteProfile": "Delete profile",
+      "updateData": "Update account data",
+      "refreshData": "Refresh account data"
     }
   },
   "weather": {

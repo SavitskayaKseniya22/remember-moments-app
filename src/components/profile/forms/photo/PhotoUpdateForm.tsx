@@ -5,13 +5,16 @@ import React from "react";
 import { useForm, SubmitHandler, FieldValues, useWatch } from "react-hook-form";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { StyledForm } from "../../../AuthForm";
+import { StyledForm } from "../AuthForm";
 import { RootState } from "../../../../store/store";
 import {
   useGetUserDataMutation,
   useUpdatePhotoMutation,
 } from "../../../../store/auth/authApi";
-import Button, { StyledLikeButton } from "../../../Button";
+import {
+  StyledBasicButton,
+  StyledLikeButton,
+} from "../../../../styledComponents/SharedStyles";
 import { storage } from "../../../../services/firebase";
 
 export const StyledLabel = styled("label")`
@@ -64,14 +67,14 @@ function PhotoUpdateForm() {
     <StyledForm method="post" onSubmit={handleSubmit(onSubmit)} noValidate>
       <StyledLabel
         htmlFor="file"
-        view={fileValue && fileValue[0] ? "transparent" : "full"}
+        $view={fileValue && fileValue[0] ? "transparent" : "full"}
       >
         {fileValue && fileValue[0] ? fileValue[0].name : "Choose image"}
         <input type="file" id="file" {...register("file")} />
       </StyledLabel>
-      <Button view="outline" type="submit">
+      <StyledBasicButton $view="outline" type="submit">
         Update profile image
-      </Button>
+      </StyledBasicButton>
     </StyledForm>
   );
 }

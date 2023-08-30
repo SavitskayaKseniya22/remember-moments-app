@@ -3,13 +3,13 @@
 import React from "react";
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { useSelector } from "react-redux";
-import { StyledForm, StyledPinkInput } from "../../../AuthForm";
+import { StyledForm, StyledPinkInput } from "../AuthForm";
 import { RootState } from "../../../../store/store";
 import {
   useGetUserDataMutation,
   useUpdateNameMutation,
 } from "../../../../store/auth/authApi";
-import Button from "../../../Button";
+import { StyledBasicButton } from "../../../../styledComponents/SharedStyles";
 
 function NameUpdateForm() {
   const { activeUser } = useSelector((state: RootState) => state.persist.user);
@@ -48,9 +48,9 @@ function NameUpdateForm() {
         {...register("displayName")}
       />
 
-      <Button view="outline" type="submit">
+      <StyledBasicButton $view="outline" type="submit">
         Update name
-      </Button>
+      </StyledBasicButton>
     </StyledForm>
   );
 }

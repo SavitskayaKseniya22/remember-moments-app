@@ -6,15 +6,13 @@ import {
   createRoutesFromElements,
   Navigate,
 } from "react-router-dom";
-
 import { useSelector } from "react-redux";
-
 import ErrorPage from "../pages/ErrorPage";
 import { MainPage } from "../pages/MainPage";
-import { AuthForm } from "./AuthForm";
+import { AuthForm } from "./profile/forms/AuthForm";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
-import { Board } from "./Board";
+import { Board } from "../pages/board/Board";
 import { Settings } from "./Settings";
 import { RootState } from "../store/store";
 import { Profile } from "./profile/Profile";

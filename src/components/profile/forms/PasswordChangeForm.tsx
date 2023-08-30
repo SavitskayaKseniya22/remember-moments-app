@@ -5,10 +5,10 @@ import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { ErrorMessage } from "@hookform/error-message";
 import { toast, Id } from "react-toastify";
-import { StyledForm, StyledPinkInput } from "../../AuthForm";
+import { StyledForm, StyledPinkInput } from "./AuthForm";
 import { useChangePasswordMutation } from "../../../store/auth/authApi";
 import { RootState } from "../../../store/store";
-import Button from "../../Button";
+import { StyledBasicButton } from "../../../styledComponents/SharedStyles";
 
 function PasswordChangeForm() {
   const { activeUser } = useSelector((state: RootState) => state.persist.user);
@@ -68,9 +68,9 @@ function PasswordChangeForm() {
           },
         })}
       />
-      <Button view="outline" type="submit">
+      <StyledBasicButton $view="outline" type="submit">
         Update password
-      </Button>
+      </StyledBasicButton>
     </StyledForm>
   );
 }

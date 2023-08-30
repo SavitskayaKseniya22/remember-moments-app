@@ -5,7 +5,10 @@ import PopularPlacesList from "./mainPage/PopularPlacesList";
 import FirstScreen from "./mainPage/FirstScreen";
 import ShopItemList from "./shop/ShopItemList";
 import { StyledNavLink } from "../components/interface/Navigation";
-import { StyledMain } from "../styledComponents/SharedStyles";
+import {
+  StyledMain,
+  styledCentredFlexbox,
+} from "../styledComponents/SharedStyles";
 
 const StyledMainFromMainPage = styled(StyledMain)`
   flex-direction: column;
@@ -13,10 +16,8 @@ const StyledMainFromMainPage = styled(StyledMain)`
 `;
 
 export const StyledTitle = styled("div")`
-  display: flex;
+  ${styledCentredFlexbox}
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   padding: 3rem;
   gap: 1rem;
 
@@ -36,10 +37,9 @@ export const StyledTitle = styled("div")`
 `;
 
 export const StyledMainPageBlock = styled("div")`
+  ${styledCentredFlexbox}
   background-color: #f5f9ff;
-  display: flex;
   flex-direction: column;
-  align-items: center;
   padding: 2rem;
 `;
 
@@ -57,7 +57,7 @@ export function MainPage() {
       </StyledTitle>
       <StyledMainPageBlock>
         <PopularPlacesList />
-        <StyledNavLink view="full" to="/destinations">
+        <StyledNavLink $view="full" to="/destinations">
           Go to explore other places
         </StyledNavLink>
       </StyledMainPageBlock>
@@ -87,7 +87,7 @@ export function MainPage() {
       </StyledTitle>
       <StyledMainPageBlock>
         <ShopItemList />
-        <StyledNavLink view="full" to="/shop">
+        <StyledNavLink $view="full" to="/shop">
           Go to shopping
         </StyledNavLink>
       </StyledMainPageBlock>

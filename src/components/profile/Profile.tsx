@@ -7,8 +7,12 @@ import Modal from "../Modal";
 import AccountDeleteForm from "./forms/AccountDeleteForm";
 import { useGetUserDataMutation } from "../../store/auth/authApi";
 import { RootState } from "../../store/store";
-import { StyledMainCentred } from "../../styledComponents/SharedStyles";
-import Button from "../Button";
+import {
+  styledBlock,
+  StyledMainCentred,
+  StyledBasicButton,
+} from "../../styledComponents/SharedStyles";
+
 import EmailChangeForm from "./forms/EmailChangeForm";
 import PasswordChangeForm from "./forms/PasswordChangeForm";
 import dummyImage from "../../assets/images/no-image-icon.png";
@@ -33,13 +37,10 @@ export const StyledProfile = styled(StyledMainCentred)`
   }
 
   .data__part {
+    ${styledBlock}
+    padding: 2rem;
     display: flex;
     flex-direction: column;
-
-    border-radius: 0.5rem;
-    background-color: white;
-    border: 2px solid rgb(245, 249, 255);
-    padding: 2rem;
     gap: 3rem;
   }
 
@@ -123,28 +124,28 @@ export function Profile() {
         </div>
         <ul className="data-part__list">
           <li>
-            <Button
-              view="outline"
+            <StyledBasicButton
+              $view="outline"
               type="button"
-              handleClick={() => {
+              onClick={() => {
                 if (activeUser) {
                   getUserData(activeUser.idToken);
                 }
               }}
             >
               {t("auth.action.refreshData")}
-            </Button>
+            </StyledBasicButton>
           </li>
           <li>
-            <Button
-              view="full"
+            <StyledBasicButton
+              $view="full"
               type="button"
-              handleClick={() => {
+              onClick={() => {
                 setModalType("delete");
               }}
             >
               {t("auth.action.deleteProfile")}
-            </Button>
+            </StyledBasicButton>
           </li>
         </ul>
       </div>

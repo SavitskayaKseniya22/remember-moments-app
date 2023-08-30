@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate, useRouteError } from "react-router-dom";
+import { StyledBasicButton } from "../styledComponents/SharedStyles";
 
 function ErrorPage() {
   const error = useRouteError();
@@ -10,14 +11,15 @@ function ErrorPage() {
     <div id="error-page">
       <h1>Oops!</h1>
       <p>Sorry, an unexpected error has occurred.</p>
-      <button
+      <StyledBasicButton
         type="button"
+        $view="full"
         onClick={() => {
           navigate("/");
         }}
       >
         Return to main page
-      </button>
+      </StyledBasicButton>
     </div>
   );
 }

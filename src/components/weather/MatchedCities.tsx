@@ -3,6 +3,7 @@ import { GeoTypes } from "../../interfaces";
 import { useAppDispatch } from "../../store/store";
 import { useGetMatchedCitiesQuery } from "../../store/weather/weatherApi";
 import { updateGeo } from "../../store/weather/weatherSlice";
+import { StyledBasicButton } from "../../styledComponents/SharedStyles";
 
 function MatchedCities({
   cityTitle,
@@ -32,7 +33,8 @@ function MatchedCities({
         data.length > 1 &&
         isOpen &&
         (data as GeoTypes[]).map((elem) => (
-          <button
+          <StyledBasicButton
+            $view="outline"
             type="button"
             onClick={async () => {
               setIsOpen(false);
@@ -43,7 +45,7 @@ function MatchedCities({
             {`${elem?.name}, ${
               elem.state && elem?.state !== elem?.name ? `${elem.state},` : ""
             } ${elem.country}`}
-          </button>
+          </StyledBasicButton>
         ))}
     </>
   );

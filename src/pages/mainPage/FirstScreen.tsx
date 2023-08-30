@@ -15,10 +15,10 @@ export const StyledFirstScreen = styled("div")`
   .first-screen__content {
     width: 40%;
     display: flex;
-    flex-direction: column;
-    gap: 3rem;
     justify-content: center;
     align-items: flex-start;
+    flex-direction: column;
+    gap: 3rem;
     flex-grow: 2;
     margin-left: 3rem;
 
@@ -49,7 +49,7 @@ function FirstScreen() {
           A Team of experienced tourism professionals will provide you with the
           best advice and tips for your desire place.
         </p>
-        <StyledNavLink to="/auth/login" view="full">
+        <StyledNavLink to="/auth/login" $view="full">
           Start an unforgettable trip
         </StyledNavLink>
       </div>

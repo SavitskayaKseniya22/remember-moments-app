@@ -1,13 +1,13 @@
 import React from "react";
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { useSelector } from "react-redux";
-import { StyledForm } from "../../../AuthForm";
+import { StyledForm } from "../AuthForm";
 import { RootState } from "../../../../store/store";
 import {
   useGetUserDataMutation,
   useRemoveNameMutation,
 } from "../../../../store/auth/authApi";
-import Button from "../../../Button";
+import { StyledBasicButton } from "../../../../styledComponents/SharedStyles";
 
 function NameRemoveForm() {
   const { activeUser } = useSelector((state: RootState) => state.persist.user);
@@ -38,9 +38,13 @@ function NameRemoveForm() {
 
   return (
     <StyledForm method="post" onSubmit={handleSubmit(onSubmit)}>
-      <Button view="outline" type="submit" disabled={!activeUser?.displayName}>
+      <StyledBasicButton
+        $view="outline"
+        type="submit"
+        disabled={!activeUser?.displayName}
+      >
         Delete name
-      </Button>
+      </StyledBasicButton>
     </StyledForm>
   );
 }

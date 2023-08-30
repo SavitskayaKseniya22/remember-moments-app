@@ -5,12 +5,11 @@ import { RootState } from "../../store/store";
 import { ActiveUserTypes } from "../../interfaces";
 import Emphasis from "./Emphasis";
 import dummyImage from "../../assets/images/no-image-icon.png";
+import { styledCentredFlexbox } from "../../styledComponents/SharedStyles";
 
 export const StyledGreetings = styled("div")`
-  display: flex;
+  ${styledCentredFlexbox}
   gap: 1rem;
-  justify-content: center;
-  align-items: center;
   .greetings__image {
     border-radius: 50%;
   }

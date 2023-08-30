@@ -3,12 +3,13 @@ import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { RootState } from "../../store/store";
-import { StyledLikeButton } from "../Button";
+import {
+  StyledLikeButton,
+  styledCentredFlexbox,
+} from "../../styledComponents/SharedStyles";
 
 export const StyledMainNavigation = styled("div")`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  ${styledCentredFlexbox}
   gap: 2rem;
   flex-grow: 2;
   a {

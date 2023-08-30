@@ -8,17 +8,18 @@ import { Form } from "react-router-dom";
 import styled from "styled-components";
 import { toast } from "react-toastify";
 import { RootState } from "../../store/store";
-import { transparentStyle } from "../../styledComponents/SharedStyles";
-import { StyledInput } from "../AuthForm";
-import Button from "../Button";
+import { StyledInput } from "../profile/forms/AuthForm";
+import { StyledBasicButton } from "../../styledComponents/SharedStyles";
 
 export const StyledTransparentInput = styled(StyledInput)`
-  ${transparentStyle}
+  background-color: transparent;
+  color: rgb(252, 223, 253);
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 `;
 
-export const StyledTransparentButton = styled(Button)`
-  ${transparentStyle}
+export const StyledTransparentButton = styled(StyledBasicButton)`
+  background-color: transparent;
+  color: rgb(252, 223, 253);
   border-bottom: 1px solid rgba(0, 0, 0, 0);
 `;
 
@@ -66,7 +67,6 @@ function WeatherSearch({
   }, [isEditing, setFocus]);
 
   useEffect(() => {
-    // toast.dismiss();???
     if (errors.cityName) {
       toast.warn(
         <ErrorMessage
@@ -117,9 +117,9 @@ function WeatherSearch({
         />
       ) : (
         <StyledTransparentButton
-          view="outline"
+          $view="outline"
           type="button"
-          handleClick={() => {
+          onClick={() => {
             setIsEditing(true);
           }}
         >

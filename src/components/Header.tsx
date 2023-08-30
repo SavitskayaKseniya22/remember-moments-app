@@ -8,9 +8,9 @@ import { LoginToggle } from "./interface/LoginToggle";
 export const StyledHeader = styled("header")`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 1280px;
   margin: 0 auto;
-  align-items: center;
   gap: 2rem;
   padding: 0 1rem;
   background-color: #fefcfb;

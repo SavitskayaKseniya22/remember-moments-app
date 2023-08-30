@@ -4,12 +4,13 @@ import { ArrowToTop } from "@styled-icons/boxicons-regular";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ReturnDownBack } from "@styled-icons/ionicons-outline";
 import { useTranslation } from "react-i18next";
-import Button from "./Button";
+import {
+  StyledBasicButton,
+  styledCentredFlexbox,
+} from "../styledComponents/SharedStyles";
 
 export const StyledFooter = styled("footer")`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${styledCentredFlexbox}
   color: #666666;
   padding: 1rem;
 
@@ -35,10 +36,10 @@ export function Footer() {
 
   return (
     <StyledFooter>
-      <Button
-        view="transparent"
+      <StyledBasicButton
+        $view="transparent"
         className="footer__to-top"
-        handleClick={() => {
+        onClick={() => {
           window.scrollTo({
             top: 0,
             left: 0,
@@ -47,18 +48,19 @@ export function Footer() {
         }}
       >
         <ArrowToTop title="ArrowToTop" size="36" />
-      </Button>
+      </StyledBasicButton>
       <span>{t("madeBy")}</span>
-      <Button
-        view="transparent"
+
+      <StyledBasicButton
+        $view="transparent"
         className="footer__nav"
-        handleClick={() => {
+        onClick={() => {
           navigate(-1);
         }}
         disabled={location.pathname === "/"}
       >
         <ReturnDownBack title="Back" size="36" />
-      </Button>
+      </StyledBasicButton>
     </StyledFooter>
   );
 }

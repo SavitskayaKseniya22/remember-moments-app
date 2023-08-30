@@ -1,7 +1,7 @@
 import { XCircle } from "@styled-icons/boxicons-regular";
 import React from "react";
 import styled from "styled-components";
-import Button from "./Button";
+import { StyledBasicButton } from "../styledComponents/SharedStyles";
 
 export const StyledModal = styled("div")`
   padding: 1rem;
@@ -43,14 +43,14 @@ function Modal({
           }}
         >
           <StyledModal>
-            <Button
-              view="outline"
-              handleClick={() => {
+            <StyledBasicButton
+              $view="outline"
+              onClick={() => {
                 closeModal();
               }}
             >
               <XCircle title="Close" size="36" />
-            </Button>
+            </StyledBasicButton>
 
             {children}
           </StyledModal>

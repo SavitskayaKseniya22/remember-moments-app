@@ -5,10 +5,10 @@ import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { ErrorMessage } from "@hookform/error-message";
 import { Id, toast } from "react-toastify";
-import { StyledForm, StyledPinkInput } from "../../AuthForm";
+import { StyledForm, StyledPinkInput } from "./AuthForm";
 import { RootState } from "../../../store/store";
 import { useChangeEmailMutation } from "../../../store/auth/authApi";
-import Button from "../../Button";
+import { StyledBasicButton } from "../../../styledComponents/SharedStyles";
 
 function EmailChangeForm() {
   const [changeEmail] = useChangeEmailMutation();
@@ -69,9 +69,9 @@ function EmailChangeForm() {
           },
         })}
       />
-      <Button view="outline" type="submit">
+      <StyledBasicButton $view="outline" type="submit">
         Update email
-      </Button>
+      </StyledBasicButton>
     </StyledForm>
   );
 }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { useGetWeatherQuery } from "../../store/weather/weatherApi";
+import { StyledBasicButton } from "../../styledComponents/SharedStyles";
 
 function WeatherDescription() {
   const { geo } = useSelector((state: RootState) => state.persist.weather);
@@ -29,9 +30,9 @@ function WeatherDescription() {
           title={`${data?.weather[0].description}`}
         />
         {data?.main.temp}&deg;
-        <button type="button" onClick={refetch}>
+        <StyledBasicButton $view="outline" type="button" onClick={refetch}>
           update
-        </button>
+        </StyledBasicButton>
       </div>
     )
   );
