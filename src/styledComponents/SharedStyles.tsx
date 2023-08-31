@@ -28,6 +28,10 @@ export const StyledMainCentred = styled(StyledMain)`
   gap: 2rem;
 `;
 
+export const StyledMainCentredColumn = styled(StyledMainCentred)`
+  flex-direction: column;
+`;
+
 export const styledBlock = css`
   border-radius: 0.5rem;
   background-color: white;

@@ -6,14 +6,9 @@ import FirstScreen from "./mainPage/FirstScreen";
 import ShopItemList from "./shop/ShopItemList";
 import { StyledNavLink } from "../components/interface/Navigation";
 import {
-  StyledMain,
+  StyledMainCentredColumn,
   styledCentredFlexbox,
 } from "../styledComponents/SharedStyles";
-
-const StyledMainFromMainPage = styled(StyledMain)`
-  flex-direction: column;
-  gap: 1rem;
-`;
 
 export const StyledTitle = styled("div")`
   ${styledCentredFlexbox}
@@ -38,6 +33,7 @@ export const StyledTitle = styled("div")`
 
 export const StyledMainPageBlock = styled("div")`
   ${styledCentredFlexbox}
+  width:100%;
   background-color: #f5f9ff;
   flex-direction: column;
   padding: 2rem;
@@ -45,7 +41,7 @@ export const StyledMainPageBlock = styled("div")`
 
 export function MainPage() {
   return (
-    <StyledMainFromMainPage>
+    <StyledMainCentredColumn>
       <FirstScreen />
       <StyledTitle>
         <h2 className="title_middle">
@@ -100,7 +96,7 @@ export function MainPage() {
         </h3>
       </StyledTitle>
       <StyledMainPageBlock />
-    </StyledMainFromMainPage>
+    </StyledMainCentredColumn>
   );
 }
 

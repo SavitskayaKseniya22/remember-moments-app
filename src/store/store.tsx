@@ -15,9 +15,11 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 import settingsReducer from "./settingsSlice";
 import userReducer from "./auth/authSlice";
+import geoReducer from "./geoDB/geoDBSlice";
 import weatherReducer from "./weather/weatherSlice";
 import { authApi } from "./auth/authApi";
 import { weatherApi } from "./weather/weatherApi";
+import { geoDBApi } from "./geoDB/geoDBApi";
 
 const persistConfig = {
   key: "remember-moments-app-root",
@@ -30,6 +32,7 @@ const persistedReducer = persistReducer(
     weather: weatherReducer,
     settings: settingsReducer,
     user: userReducer,
+    geoDB: geoReducer,
   }),
 );
 
@@ -37,6 +40,7 @@ const rootReducer = combineReducers({
   persist: persistedReducer,
   [weatherApi.reducerPath]: weatherApi.reducer,
   [authApi.reducerPath]: authApi.reducer,
+  [geoDBApi.reducerPath]: geoDBApi.reducer,
 });
 
 export const store = configureStore({
@@ -48,7 +52,8 @@ export const store = configureStore({
       },
     })
       .concat(weatherApi.middleware)
-      .concat(authApi.middleware),
+      .concat(authApi.middleware)
+      .concat(geoDBApi.middleware),
 });
 
 export const persistor = persistStore(store);

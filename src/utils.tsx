@@ -59,3 +59,28 @@ export function transformAuthError(response: FetchBaseQueryError) {
     message: message.toLowerCase().replaceAll("_", " "),
   };
 }
+
+export function sliceQueryParameter(string: string, query: string) {
+  const indefOfValue = string.indexOf(query) + `${query}=`.length;
+  const indexOfDelimiter = string.indexOf("&", indefOfValue);
+  return string.slice(indefOfValue, indexOfDelimiter);
+}
+
+export function checkOffset(offset: number, total: number, rel: string) {
+  switch (rel) {
+    case "first":
+      return 0;
+    case "last":
+      return Math.trunc(total / 10) * 10;
+    case "prev": {
+      const prevValue = Math.trunc(offset / 10) * 10 - 10;
+      return prevValue >= 0 ? prevValue : 0;
+    }
+    case "next": {
+      const nextValue = Math.trunc(offset) + 10;
+      return nextValue <= total ? nextValue : offset;
+    }
+    default:
+      return offset;
+  }
+}

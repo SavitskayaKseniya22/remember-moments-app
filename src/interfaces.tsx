@@ -18,8 +18,16 @@ export interface AuthErrorTypes {
     message: string;
   };
 }
+
 export interface WeatherErrorTypes {
   error: { cod: string; message: string };
+}
+
+export interface GeoErrorTypes {
+  errors: {
+    code: string;
+    message: string;
+  }[];
 }
 
 export interface ActiveUserDataTypes {
@@ -144,4 +152,29 @@ export interface UpdateProfileArgsTypes {
   idToken: string;
   displayName?: string;
   photoUrl?: string;
+}
+
+export interface GeoDataTypes {
+  data: {
+    id: number;
+    wikiDataId: string;
+    type: string;
+    name: string;
+    country: string;
+    countryCode: string;
+    region: string;
+    regionCode: string;
+    regionWdId: string;
+    latitude: number;
+    longitude: number;
+    population: number;
+  }[];
+  links: {
+    rel: string;
+    href: string;
+  }[];
+  metadata: {
+    currentOffset: number;
+    totalCount: number;
+  };
 }
