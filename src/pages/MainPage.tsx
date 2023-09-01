@@ -9,6 +9,55 @@ import {
   StyledMainCentredColumn,
   styledCentredFlexbox,
 } from "../styledComponents/SharedStyles";
+import { GeoDataTypes } from "../interfaces";
+
+export const dummyData: GeoDataTypes = {
+  data: [
+    {
+      id: 3710202,
+      wikiDataId: "Q649",
+      type: "CITY",
+      name: "Moscow",
+      country: "Russia",
+      countryCode: "RU",
+      region: "Moscow",
+      regionCode: "MOW",
+      regionWdId: "Q649",
+      latitude: 55.755833333,
+      longitude: 37.617777777,
+      population: 13010112,
+    },
+    {
+      id: 144571,
+      wikiDataId: "Q90",
+      type: "CITY",
+      name: "Paris",
+      country: "France",
+      countryCode: "FR",
+      region: "Île-de-France",
+      regionCode: "IDF",
+      regionWdId: "Q13917",
+      latitude: 48.856666666,
+      longitude: 2.352222222,
+      population: 2145906,
+    },
+    {
+      id: 7448,
+      wikiDataId: "Q472",
+      type: "CITY",
+      name: "Sofia",
+      country: "Bulgaria",
+      countryCode: "BG",
+      region: "Sofia City Province",
+      regionCode: "22",
+      regionWdId: "Q1585725",
+      latitude: 42.697886,
+      longitude: 23.321726,
+      population: 1383435,
+    },
+  ],
+  metadata: { currentOffset: 0, totalCount: 1 },
+};
 
 export const StyledTitle = styled("div")`
   ${styledCentredFlexbox}
@@ -52,7 +101,7 @@ export function MainPage() {
         </h3>
       </StyledTitle>
       <StyledMainPageBlock>
-        <PopularPlacesList />
+        <PopularPlacesList result={dummyData} />
         <StyledNavLink $view="full" to="/destinations">
           Go to explore other places
         </StyledNavLink>

@@ -169,7 +169,7 @@ export interface GeoDataTypes {
     longitude: number;
     population: number;
   }[];
-  links: {
+  links?: {
     rel: string;
     href: string;
   }[];

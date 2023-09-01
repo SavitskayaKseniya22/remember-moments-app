@@ -11,6 +11,7 @@ export const StyledPopularPlace = styled("li")`
 
   .place__image_main {
     border-radius: 0.5rem;
+    align-self: center;
   }
 
   .place__content {
@@ -19,7 +20,8 @@ export const StyledPopularPlace = styled("li")`
     flex-direction: column;
     gap: 1rem;
 
-    .content__title {
+    .content__title,
+    .content__title_sub {
       margin: 0;
     }
 
@@ -27,6 +29,7 @@ export const StyledPopularPlace = styled("li")`
       display: flex;
       color: #666666;
       justify-content: space-between;
+      gap: 1rem;
 
       span {
         display: flex;
@@ -50,23 +53,25 @@ export const StyledStar = styled(Star)<{ $score: string }>`
 `;
 
 function PopularPlace(place: {
+  region: string;
   name: string;
   country: string;
   score: string;
   image: string;
 }) {
-  const { name, country, score, image } = place;
+  const { name, country, score, image, region } = place;
   return (
     <StyledPopularPlace>
       <img
         className="place__image_main"
         src={image}
         alt={name}
-        width="250"
-        height="250"
+        width="200"
+        height="200"
       />
       <div className="place__content">
         <h3 className="content__title">{name}</h3>
+        <h4 className="content__title_sub">{region}</h4>
         <p className="content__info">
           <span>
             <Map title="Map" size="24" />

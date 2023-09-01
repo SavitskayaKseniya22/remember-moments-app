@@ -1,30 +1,38 @@
 import React from "react";
-import { StyledListOfItems } from "../../styledComponents/SharedStyles";
+import styled from "styled-components";
+import { styledCentredFlexbox } from "../../styledComponents/SharedStyles";
 import PopularPlace from "./PopularPlace";
 import placeImage from "../../assets/images/france-eiffel-tower-paris.jpg";
+import { GeoDataTypes } from "../../interfaces";
 
-function PopularPlacesList() {
+export const StyledPopularPlacesList = styled("ul")`
+  ${styledCentredFlexbox}
+  gap: 1rem;
+  padding: 2rem;
+  flex-wrap: wrap;
+  width: 100%;
+  flex-grow: 22;
+  background-color: rgb(245, 249, 255);
+`;
+
+function PopularPlacesList({ result }: { result: GeoDataTypes }) {
   return (
-    <StyledListOfItems>
-      <PopularPlace
-        name="Paris"
-        country="France"
-        score="4.8"
-        image={placeImage}
-      />
-      <PopularPlace
-        name="Moscow"
-        country="Russia"
-        score="3.2"
-        image={placeImage}
-      />
-      <PopularPlace
-        name="Sofia"
-        country="Bulgaria"
-        score="2.5"
-        image={placeImage}
-      />
-    </StyledListOfItems>
+    <StyledPopularPlacesList>
+      {result &&
+        result.data.map((item) => {
+          const { countryCode, regionCode, id, name, region, country } = item;
+          return (
+            <PopularPlace
+              key={`${countryCode}-${regionCode}-${id}`}
+              name={name}
+              region={region}
+              country={country}
+              score="4.8"
+              image={placeImage}
+            />
+          );
+        })}
+    </StyledPopularPlacesList>
   );
 }
 
