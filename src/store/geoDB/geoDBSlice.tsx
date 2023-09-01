@@ -4,23 +4,33 @@ import { GeoDataTypes } from "../../interfaces";
 
 export interface GeoState {
   geoDBSearchResult: GeoDataTypes | undefined;
-  geoDBSearchQuery: string | undefined;
+  geoDBSearchQuery: string;
+  geoDBSortType: string;
+  geoDBOffset: string;
 }
 
 const initialState: GeoState = {
   geoDBSearchResult: undefined,
-  geoDBSearchQuery: undefined,
+  geoDBSearchQuery: "",
+  geoDBSortType: "name",
+  geoDBOffset: "0",
 };
 
 export const geoDBSlice = createSlice({
   name: "geoDB",
   initialState,
   reducers: {
-    updateActiveSearchResult: (state, action: PayloadAction<GeoDataTypes>) => {
+    updateSearchResult: (state, action: PayloadAction<GeoDataTypes>) => {
       state.geoDBSearchResult = action.payload;
     },
-    updateActiveSearchQuery: (state, action: PayloadAction<string>) => {
+    updateSearchQuery: (state, action: PayloadAction<string>) => {
       state.geoDBSearchQuery = action.payload;
+    },
+    updateSortType: (state, action: PayloadAction<string>) => {
+      state.geoDBSortType = action.payload;
+    },
+    updateOffset: (state, action: PayloadAction<string>) => {
+      state.geoDBOffset = action.payload;
     },
 
     resetActiveSearch: (state) => {
@@ -30,9 +40,11 @@ export const geoDBSlice = createSlice({
 });
 
 export const {
-  updateActiveSearchResult,
+  updateSearchResult,
   resetActiveSearch,
-  updateActiveSearchQuery,
+  updateSearchQuery,
+  updateSortType,
+  updateOffset,
 } = geoDBSlice.actions;
 
 export default geoDBSlice.reducer;

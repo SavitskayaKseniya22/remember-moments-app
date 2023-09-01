@@ -2,27 +2,30 @@ import React, { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { useGetPlaceQuery } from "../../store/geoDB/geoDBApi";
-import { checkOffset, sliceQueryParameter } from "../../utils";
+import { checkOffset } from "../../utils";
 import {
   StyledBasicButton,
   StyledListOfItems,
 } from "../../styledComponents/SharedStyles";
 
 function Pagination() {
-  const { geoDBSearchResult } = useSelector(
-    (state: RootState) => state.persist.geoDB,
-  );
+  const { geoDBSearchResult, geoDBSearchQuery, geoDBSortType, geoDBOffset } =
+    useSelector((state: RootState) => state.persist.geoDB);
 
-  const queryParametersRef = useRef({
-    offset: "0",
-    namePrefix: "",
-  });
+  const offsetRef = useRef(geoDBOffset);
 
   const [skip, setSkip] = useState(true);
 
-  useGetPlaceQuery(queryParametersRef.current, {
-    skip,
-  });
+  useGetPlaceQuery(
+    {
+      offset: offsetRef.current,
+      namePrefix: geoDBSearchQuery,
+      sort: geoDBSortType,
+    },
+    {
+      skip,
+    },
+  );
 
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
@@ -40,23 +43,17 @@ function Pagination() {
                   }
                   type="button"
                   onClick={() => {
-                    const namePrefix = sliceQueryParameter(
-                      item.href,
-                      "namePrefix",
-                    );
                     const { currentOffset, totalCount } =
                       geoDBSearchResult.metadata;
+
                     const offset = checkOffset(
                       currentOffset,
                       totalCount,
                       item.rel,
                     ).toString();
 
-                    if (queryParametersRef.current.offset !== offset) {
-                      queryParametersRef.current = {
-                        offset,
-                        namePrefix,
-                      };
+                    if (geoDBOffset !== offset) {
+                      offsetRef.current = offset;
                       setSkip(false);
                     }
                   }}

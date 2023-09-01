@@ -1,10 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { toast } from "react-toastify";
 import { t } from "i18next";
-import { GeoErrorTypes } from "../../interfaces";
+
 import {
-  updateActiveSearchQuery,
-  updateActiveSearchResult,
+  updateOffset,
+  updateSearchQuery,
+  updateSearchResult,
+  updateSortType,
 } from "./geoDBSlice";
 
 export const geoDBApi = createApi({
@@ -15,23 +17,36 @@ export const geoDBApi = createApi({
 
   endpoints: (builder) => ({
     getPlace: builder.query({
-      query: ({ namePrefix, offset }: { namePrefix: string; offset: string }) =>
-        `places?limit=10&offset=${offset}&namePrefix=${namePrefix}&sort=-population&types=CITY`,
+      query: ({
+        namePrefix,
+        offset,
+        sort,
+      }: {
+        namePrefix: string;
+        offset: string;
+        sort: string;
+      }) =>
+        `places?limit=10&offset=${offset}&namePrefix=${namePrefix}&sort=${sort}&types=CITY`,
 
       keepUnusedDataFor: 0,
+
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
           if (data.data.length === 0) {
             toast.warn(t("weather.warn.noMatch"));
           }
-          dispatch(updateActiveSearchResult(data));
-          dispatch(updateActiveSearchQuery(arg.namePrefix));
+          dispatch(updateSearchResult(data));
+          dispatch(updateSearchQuery(arg.namePrefix));
+          dispatch(updateOffset(arg.offset));
+          dispatch(updateSortType(arg.sort));
         } catch (err) {
-          const errorData = (err as GeoErrorTypes).errors;
+          console.log(err);
+
+          /*
           errorData.forEach((errorItem) => {
             toast.error(`${errorItem.code}: ${errorItem.message}`);
-          });
+          }); */
         }
       },
     }),

@@ -5,6 +5,7 @@ import GeoDBPagination from "./GeoDBPagination";
 import GeoDBSuggest from "./GeoDBSuggest";
 import { RootState } from "../../store/store";
 import PopularPlacesList from "../mainPage/PopularPlacesList";
+import GeoDBSortType from "./GeoDBSort";
 
 function Destinations() {
   const { geoDBSearchResult } = useSelector(
@@ -13,6 +14,7 @@ function Destinations() {
   return (
     <StyledMainCentredColumn>
       <GeoDBSuggest />
+      <GeoDBSortType />
       {geoDBSearchResult && <PopularPlacesList result={geoDBSearchResult} />}
       <GeoDBPagination />
     </StyledMainCentredColumn>

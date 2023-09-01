@@ -11,7 +11,7 @@ import { useGetPlaceQuery } from "../../store/geoDB/geoDBApi";
 import { RootState } from "../../store/store";
 
 function PlaceSuggest() {
-  const { geoDBSearchQuery } = useSelector(
+  const { geoDBSearchQuery, geoDBSortType } = useSelector(
     (state: RootState) => state.persist.geoDB,
   );
   const { register, control } = useForm({
@@ -23,7 +23,7 @@ function PlaceSuggest() {
   const namePrefix = useWatch({ control, name: "namePrefix" });
 
   useGetPlaceQuery(
-    { namePrefix, offset: "0" },
+    { namePrefix, offset: "0", sort: geoDBSortType },
     {
       skip: !(namePrefix && namePrefix.length > 2),
     },
