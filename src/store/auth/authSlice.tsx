@@ -2,12 +2,22 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { ActiveUserTypes } from "../../interfaces";
 
+export interface JourneyTypes {
+  id: string;
+  date_to: string;
+  date_from: string;
+  place: string;
+  notes: string[];
+}
+
 export interface AuthState {
   activeUser: ActiveUserTypes | undefined;
+  userData: JourneyTypes[];
 }
 
 const initialState: AuthState = {
   activeUser: undefined,
+  userData: [],
 };
 
 export const authSlice = createSlice({
@@ -27,6 +37,9 @@ export const authSlice = createSlice({
         state.activeUser.profilePicture = action.payload;
       }
     },
+    updateUserData: (state, action: PayloadAction<JourneyTypes>) => {
+      state.userData = [...state.userData, action.payload];
+    },
     resetActiveUser: (state) => {
       state.activeUser = initialState.activeUser;
     },
@@ -38,6 +51,7 @@ export const {
   updatePhotoForActiveUser,
   resetActiveUser,
   updateNameForActiveUser,
+  updateUserData,
 } = authSlice.actions;
 
 export default authSlice.reducer;

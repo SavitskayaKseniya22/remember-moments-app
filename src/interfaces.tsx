@@ -23,11 +23,23 @@ export interface WeatherErrorTypes {
   error: { cod: string; message: string };
 }
 
-export interface GeoErrorTypes {
+export interface GeoErrorTypes2 {
   errors: {
     code: string;
     message: string;
   }[];
+}
+
+export interface GeoErrorTypes {
+  error: {
+    code: string;
+    message: string;
+  }[];
+  isUnhandledError: false;
+  meta: {
+    request: {};
+    response: {};
+  };
 }
 
 export interface ActiveUserDataTypes {
