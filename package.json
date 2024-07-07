@@ -46,7 +46,8 @@
     "prepare": "husky install",
     "prettier": "prettier --write .",
     "lint": "eslint .",
-    "lint-fix": "eslint . --fix"
+    "lint-fix": "eslint . --fix",
+    "format": "npx prettier . --write"
   },
   "lint-staged": {
     "*.{tsx,ts,test.tsx,json}": [
